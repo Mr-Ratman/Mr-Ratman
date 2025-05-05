@@ -6,19 +6,35 @@ html {
 .small {
   font-size: 80%;
 }
+.fade {
+  transition-property: opacity;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+  transition-delay: calc(250ms * var(--i));
+
+  @starting-style {
+    opacity: 0;
+  }
+}
 #profilepic {
   height: 200px;
 }
 </style>
-<p class='small'>PAUL SANDERSON</p>
-<p><img id='profilepic' src='paul.jpg'></p>
-<h1>MSc Computer Science E-Portfolio</h1>
-<hr>
-<h2>About Me</h2>
-<ul>
-  <li>I'm a teacher from New Zealand.</li>
-  <li>I've worked in international schools in Papua New Guinea, Brunei, Malaysia, South Korea, Qatar and The Netherlands.</li>
-  <li>At many schools I taught computing, managed databases and developed applications.</li>
-  <li>I'm currently studying data science at the University of Essex!</li>
-</ul>
-<hr>
+<div class='fade' style='--i: 1;'>
+  <p class='small'>PAUL SANDERSON</p>
+  <p><img id='profilepic' src='paul.jpg'></p>
+</div>
+<div class='fade' style='--i: 2;'>
+  <h1>MSc Computer Science E-Portfolio</h1>
+  <hr>
+</div>
+<div class='fade' style='--i: 3;'>
+  <h2>About Me</h2>
+  <ul>
+    <li>I'm a teacher from New Zealand.</li>
+    <li>I've worked in international schools in Papua New Guinea, Brunei, Malaysia, South Korea, Qatar and The Netherlands.</li>
+    <li>At many schools I taught computing, managed databases and developed applications.</li>
+    <li>I'm currently studying data science at the University of Essex!</li>
+  </ul>
+  <hr>
+</div>
