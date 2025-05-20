@@ -1,0 +1,28 @@
+<style>
+html {
+  font-family: sans-serif;
+}
+</style>
+<p>Here's my web scraping Python script - it finds text containing "data scientist" on <a href="https://www.essex.ac.uk/courses/PG00742/1/MSc-Data-Science" target="_blank" rel="noreferrer noopener">the University of Essex MSc Data Science page</a>.</p>
+<pre>import re
+import requests
+import bs4
+
+page = requests.get("https://www.essex.ac.uk/courses/PG00742/1/MSc-Data-Science")
+
+soup = bs4.BeautifulSoup(page.content, "html.parser")
+results = soup.find_all(string=re.compile("data scientist"))
+
+for count, value in enumerate(results):
+  if count &gt; 0:
+    print(",")
+  print("{\"ID\":", count, ", \"text\": \"", value, "\"}", end = "")
+</pre>
+<p>Here's the output in JSON format.</p>
+<pre>{"ID": 0 , "text": " Our data scientists carefully consider how not to lie, and how not to get lied to with data. Interpreting data correctly is especially important because much of our data science research is applied directly or indirectly to social policies, including health, care and education. "},
+{"ID": 1 , "text": " We are committed to developing the data scientists of the future. "},
+{"ID": 2 , "text": " More information about the exceptional and expansive team of data scientists within our School is available on our "},
+{"ID": 3 , "text": " With a predicted shortage of data scientists, now is the time to future-proof your career. Data scientists are required in every sector, carrying out statistical analysis or mining data on social media, so our course opens the door to almost any industry, from health, to government, to publishing. "},
+{"ID": 4 , "text": " Our graduates are highly sought after by a range of employers and find employment in financial services, scientific computation, decision-making support and government, risk assessment, statistics, education and other areas. Our recent graduates have gone on to work as data scientists and data analysts in both the private and public sectors. "}
+</pre>
+<p>I'd like to work on finding a more elegant way to do this, but it works!</p>
