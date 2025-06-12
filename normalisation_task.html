@@ -108,7 +108,7 @@ th, td {
     <tr><td>6</td><td>Music</td><td>AQA</td><td>Ms Daniels</td></tr>
   </tbody>
 </table>
-<p>The third table stores which students take which courses.</p>
+<p>The third table is for which students take which courses.</p>
 <table>
   <thead>
     <tr><th>Student Number</th><th>Course Number</th></tr>
@@ -131,3 +131,29 @@ th, td {
     <tr><td>1005</td><td>6</td></tr>
   </tbody>
 </table>
+<p>Finally I wrote SQL to create the tables.</p>
+<pre>CREATE TABLE students (
+  student_number int UNSIGNED NOT NULL,
+  student_name varchar(30) NOT NULL,
+  exam_score int UNSIGNED DEFAULT NULL,
+  support bool NOT NULL,
+  date_of_birth date NOT NULL,
+  PRIMARY KEY (student_number)
+)
+
+CREATE TABLE courses (
+  course_number int UNSIGNED NOT NULL,
+  course_name varchar(30) NOT NULL,
+  exam_board varchar(30) DEFAULT NULL,
+  teacher_name varchar(30) NOT NULL,
+  PRIMARY KEY (course_number)
+)
+
+CREATE TABLE student_courses (
+  student_number int UNSIGNED NOT NULL,
+  course_number int UNSIGNED NOT NULL,
+  PRIMARY KEY (student_number, course_number),
+  FOREIGN KEY (student_number) REFERENCES students(student_number),
+  FOREIGN KEY (course_number) REFERENCES courses(course_number)
+)
+</pre>
