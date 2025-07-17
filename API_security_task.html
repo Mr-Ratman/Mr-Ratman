@@ -1,0 +1,85 @@
+<style>
+html {
+  background-color: greenyellow;
+  font-family: sans-serif;
+}
+body {
+  margin: 25px;
+  padding: 25px;
+  background-color: white;
+}
+pre {
+  white-space: pre-wrap;
+}
+</style>
+<h3>API Security Task</h3>
+<p>Our task was to write security requirements which reduce the risks of a data sharing API. I found this very useful to think about, as I assumed a public API didn't really have many security requirements, but actually a public API can be abused. I may find this useful in my future work, as I could be making data available via an API.</p>
+<p>I decided to use the Open Notify API for <a href='http://open-notify.org/Open-Notify-API/People-In-Space/' target='_blank'>people in space</a>. This returns the details of current humans in space.</p>
+<p>I wrote this Python code to use the API.</p>
+<pre>import requests
+response = requests.get("http://api.open-notify.org/astros")
+print(response.json())
+</pre>
+<p>Here is the response showing 12 astronauts currently in space.</p>
+<pre>{
+    "message": "success",
+    "number": 12,
+    "people": [
+        {
+            "craft": "ISS",
+            "name": "Oleg Kononenko"
+        },
+        {
+            "craft": "ISS",
+            "name": "Nikolai Chub"
+        },
+        {
+            "craft": "ISS",
+            "name": "Tracy Caldwell Dyson"
+        },
+        {
+            "craft": "ISS",
+            "name": "Matthew Dominick"
+        },
+        {
+            "craft": "ISS",
+            "name": "Michael Barratt"
+        },
+        {
+            "craft": "ISS",
+            "name": "Jeanette Epps"
+        },
+        {
+            "craft": "ISS",
+            "name": "Alexander Grebenkin"
+        },
+        {
+            "craft": "ISS",
+            "name": "Butch Wilmore"
+        },
+        {
+            "craft": "ISS",
+            "name": "Sunita Williams"
+        },
+        {
+            "craft": "Tiangong",
+            "name": "Li Guangsu"
+        },
+        {
+            "craft": "Tiangong",
+            "name": "Li Cong"
+        },
+        {
+            "craft": "Tiangong",
+            "name": "Ye Guangfu"
+        }
+    ]
+}
+</pre>
+<p>The API is public, so there's no need to consider access control, confirming the correct destination, or encryption. However, the API could be abused by an attack such as denial-of-service, or the API could suddenly become massively popular (if a link to it was posted on a very popular site) or possibly a user could write a script which has unintentionally too many or too frequent requests.</p>
+<p>A good way to protect the API would be to detect and analyse unusual access, which could be achieved in a number of ways.</p>
+<ul>
+  <li>Use a “cleaning center” service such as <a href='https://www.nexusguard.com/' target='_blank'>Nexusguard</a> to filter out bad traffic.</li>
+  <li>Use bad traffic filtering hardware such as <a href='https://levelblue.com/' target='_blank'>LevelBlue</a>.</li>
+  <li>Use software such as <a href='https://www.radware.com/' target='_blank'>Radware</a> to detect and block suspicious traffic.</li>
+</ul>
