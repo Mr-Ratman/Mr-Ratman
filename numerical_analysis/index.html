@@ -1,1 +1,61 @@
+<link rel='icon' type='image/png' href='../favicon.png'>
+<style>
+html {
+  background-color: greenyellow;
+  font-family: sans-serif;
+}
+table {
+  border-collapse: collapse;
+}
+td {
+  width: 50%;
+  border: 2px inset lightgrey;
+  padding: 5px;
+}
+.small {
+  font-size: 80%;
+}
+.fade {
+  transition-property: opacity;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+  transition-delay: calc(250ms * var(--i));
 
+  @starting-style {
+    opacity: 0;
+  }
+}
+.big_link {
+  display: block;
+  padding: 5px;
+  color: black;
+  text-decoration: none;
+}
+.big_link:hover {
+  background-color: #e6ff2f;
+}
+.big_link: visited {
+  color: black;
+}
+.profilepic {
+  height: 200px;
+}
+</style>
+<div class='fade' style='--i: 1;'>
+  <p class='small'>PAUL SANDERSON</p>
+  <p><img class='profilepic' src='../paul.jpg'><img class='profilepic' src='../paul_anime.jpg'></p>
+</div>
+<div class='fade' style='--i: 2;'>
+  <h1>Numerical Analysis E-Portfolio</h1>
+</div>
+<table>
+  <tr>
+    <td class='fade' style='--i: 3;'>
+      <a class='big_link' href='coronavirus_recovery.html'>
+        <h3>Coronavirus Recovery Activity</h3>
+        <p>This assignment was part of the University of Essex "Numerical Analysis" module.</p>
+        <p>Click here to take a look at the R code I wrote to analyse coronvirus recovery data!</p>
+      </a>
+    </td>
+  </tr>
+</table>
