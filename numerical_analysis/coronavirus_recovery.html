@@ -9,6 +9,9 @@ html {
   padding: 25px;
   background-color: white;
 }
+.monospace {
+  font-family: monospace;
+}
 pre {
   white-space: pre-wrap;
 }
@@ -17,7 +20,7 @@ table {
 }
 th, td {
   border: 1px solid black;
-  padding: 10px 0px;
+  padding: 0px 10px;
 }
 th {
   font-weight: bold;
@@ -26,9 +29,9 @@ th {
 <p><a href='index.html'>&larr; back</a></p>
 <div class='container'>
 <h3>Coronavirus Recovery Activity</h3>
-<p>Our task was to analyse January 2020 to March 2020 coronavirus recovery data from India using RStudio.</p>
-<p>The data came from <a href='https://www.kaggle.com/datasets/aditeloo/a-small-covid19-dataset' target='_blank'>here on Kaggle</a>. Here's a sample of the data.</p>
-<table>
+<p>Our task was to analyse coronavirus recovery data from India from January 2020 to March 2020 using RStudio.</p>
+<p>The data came from <a href='https://www.kaggle.com/datasets/aditeloo/a-small-covid19-dataset' target='_blank'>here on Kaggle</a>. Here's a sample of the data. (There are actually 270 rows.)</p>
+<table class='monospace'>
   <thead>
     <tr><th>Sno</th><th>Date</th><th>State/UnionTerritory</th><th>ConfirmedIndianNational</th><th>ConfirmedForeignNational</th><th>Cured</th><th>Deaths</th></tr>
   </thead>
@@ -46,10 +49,33 @@ th {
 FALSE  TRUE
    55   215
 </pre>
-<p>I also checked this got the opposite result if I used <pre>Cured > 0</pre>.</p>
+<p>I also checked this produced the opposite result if I used <span class='monospace'>Cured > 0</span>.</p>
 <pre>table(Covid19_India_Jan_20_Mar_20_$Cured > 0)
 
 FALSE  TRUE
   215    55
 </pre>
+<p>Next I turned the results into percentages.</p>
+<pre>table(Covid19_India_Jan_20_Mar_20_$Cured == 0)/nrow(Covid19_India_Jan_20_Mar_20_) * 100
+
+   FALSE     TRUE
+20.37037 79.62963
+</pre>
+<p>Finally I added a variable <span class='monospace'>has_recovery</span> that indicates whether any recoveries were reported.</p>
+<pre>Covid19_India_Jan_20_Mar_20_$has_recovery <- Covid19_India_Jan_20_Mar_20_$Cured > 0
+</pre>
+
+<table class='monospace'>
+  <thead>
+    <tr><th>Sno</th><th>Date</th><th>State/UnionTerritory</th><th>ConfirmedIndianNational</th><th>ConfirmedForeignNational</th><th>Cured</th><th>Deaths</th><th>has_recovery</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>30-01-2020</td><td>Kerala</td><td>1</td><td>0</td><td>0</td><td>0</td><td>FALSE</td></tr>
+    <tr><td>2</td><td>31-01-2020</td><td>Kerala</td><td>1</td><td>0</td><td>0</td><td>0</td><td>FALSE</td></tr>
+    <tr><td>3</td><td>01-02-2020</td><td>Kerala</td><td>2</td><td>0</td><td>0</td><td>0</td><td>FALSE</td></tr>
+    <tr><td>4</td><td>02-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td></tr>
+    <tr><td>5</td><td>03-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td></tr>
+  </tbody>
+</table>
+<p>This was an excellent practical activity for me to apply my R coding skills to!
 </div>
