@@ -4,7 +4,7 @@ html {
   background-color: greenyellow;
   font-family: sans-serif;
 }
-body {
+.container {
   margin: 25px;
   padding: 25px;
   background-color: white;
@@ -13,6 +13,8 @@ pre {
   white-space: pre-wrap;
 }
 </style>
+<p>back</p>
+<div class='container'>
 <h3>API Security Task</h3>
 <p>Our task was to write security requirements which reduce the risks of a data sharing API. I found this very useful to think about, as I assumed a public API didn't really have many security requirements, but actually a public API can be abused. I may find this useful in my future work, as I could be making data available via an API.</p>
 <p>I decided to use the Open Notify API for <a href='http://open-notify.org/Open-Notify-API/People-In-Space/' target='_blank'>people in space</a>. This returns the details of current humans in space.</p>
@@ -84,3 +86,4 @@ print(response.json())
   <li>Use bad traffic filtering hardware such as <a href='https://levelblue.com/' target='_blank'>LevelBlue</a>.</li>
   <li>Use software such as <a href='https://www.radware.com/' target='_blank'>Radware</a> to detect and block suspicious traffic.</li>
 </ul>
+</div>
