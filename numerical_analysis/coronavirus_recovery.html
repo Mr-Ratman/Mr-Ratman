@@ -62,10 +62,27 @@ th {
 <p>I used this R code to tidy the data.</p>
 <pre>Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory` &lt;- which(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory` == "Chattisgarh") %&gt;% 
   replace(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`, ., "Chhattisgarh")
+
 ut &lt;- which(substr(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`, 1, 19) == "Union Territory of ")
+
 Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`[ut] &lt;-
   substr(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`[ut], 20, nchar(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`[ut]))
 </pre>
+<p>I created the frequency table again with the corrected data.</p>
+<pre>table(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`)</pre>
+<p>Here are the first few results.</p>
+<table class='monospace'>
+  <thead>
+    <tr><th>State/UnionTerritory</th><th>Freq</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Andhra Pradesh</td><td>10</td></tr>
+    <tr><td>Chandigarh</td><td>1</td></tr>
+    <tr><td>Chhattisgarh</td><td>3</td></tr>
+    <tr><td>Delhi</td><td>20</td></tr>
+    <tr><td>Gujarat</td><td>2</td></tr>
+  </tbody>
+</table>
 <p>I created a frequency table to count how many daily reports showed recoveries versus no recoveries during this period.</p>
 <pre>table(Covid19_India_Jan_20_Mar_20_$Cured == 0)
   
