@@ -83,6 +83,31 @@ Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`[ut] &lt;-
     <tr><td>Gujarat</td><td>2</td></tr>
   </tbody>
 </table>
+<p>I put the results in descending order to see which states appear most frequently.</p>
+<pre>table(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`) %>%
+  as.data.frame() %>%
+  arrange(desc(Freq))
+</pre>
+<p>Here are the first few results.</p>
+<table class='monospace'>
+  <thead>
+    <tr><th>State/UnionTerritory</th><th>Freq</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Kerala</td><td>52</td></tr>
+    <tr><td>Delhi</td><td>20</td></tr>
+    <tr><td>Telengana</td><td>20</td></tr>
+    <tr><td>Rajasthan</td><td>19</td></tr>
+    <tr><td>Haryana</td><td>18</td></tr>
+  </tbody>
+</table>
+<p>I wanted to find range of dates, but the "Date" column was "character" data type, so I made a new column with "Date" data type, then found the difference between the first and last dates.</p>
+<pre>Covid19_India_Jan_20_Mar_20_$date_converted %lt;- as.Date(Covid19_India_Jan_20_Mar_20_$Date, format = "%d-%m-%Y")
+
+max(Covid19_India_Jan_20_Mar_20_$date_converted) - min(Covid19_India_Jan_20_Mar_20_$date_converted)
+
+Time difference of 51 days
+</pre>
 <p>I created a frequency table to count how many daily reports showed recoveries versus no recoveries during this period.</p>
 <pre>table(Covid19_India_Jan_20_Mar_20_$Cured == 0)
   
@@ -95,7 +120,7 @@ FALSE  TRUE
 FALSE  TRUE
   215    55
 </pre>
-<p>Next I turned the results into percentages.</p>
+<p>I turned the results into percentages.</p>
 <pre>table(Covid19_India_Jan_20_Mar_20_$Cured == 0)/nrow(Covid19_India_Jan_20_Mar_20_) * 100
 
    FALSE     TRUE
