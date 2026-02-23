@@ -134,10 +134,9 @@ FALSE  TRUE
    FALSE     TRUE
 20.37037 79.62963
 </pre>
-<p>Finally I added a variable <span class='monospace'>has_recovery</span> that indicates whether any recoveries were reported.</p>
+<p>I added a variable <span class='monospace'>has_recovery</span> that indicates whether any recoveries were reported.</p>
 <pre>Covid19_India_Jan_20_Mar_20_$has_recovery <- Covid19_India_Jan_20_Mar_20_$Cured > 0
 </pre>
-
 <table class='monospace'>
   <thead>
     <tr><th>Sno</th><th>Date</th><th>State/UnionTerritory</th><th>ConfirmedIndianNational</th><th>ConfirmedForeignNational</th><th>Cured</th><th>Deaths</th><th>has_recovery</th></tr>
@@ -148,6 +147,21 @@ FALSE  TRUE
     <tr><td>3</td><td>01-02-2020</td><td>Kerala</td><td>2</td><td>0</td><td>0</td><td>0</td><td>FALSE</td></tr>
     <tr><td>4</td><td>02-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td></tr>
     <tr><td>5</td><td>03-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td></tr>
+  </tbody>
+</table>
+<p>I added another variable <span class='monospace'>has_deaths</span> that indicates whether any deaths were reported.</p>
+<pre>Covid19_India_Jan_20_Mar_20_$has_deaths <- Covid19_India_Jan_20_Mar_20_$Deaths > 0
+</pre>
+<table class='monospace'>
+  <thead>
+    <tr><th>Sno</th><th>Date</th><th>State/UnionTerritory</th><th>ConfirmedIndianNational</th><th>ConfirmedForeignNational</th><th>Cured</th><th>Deaths</th><th>has_recovery</th><th>has_deaths</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>30-01-2020</td><td>Kerala</td><td>1</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td></tr>
+    <tr><td>2</td><td>31-01-2020</td><td>Kerala</td><td>1</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td></tr>
+    <tr><td>3</td><td>01-02-2020</td><td>Kerala</td><td>2</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td></tr>
+    <tr><td>4</td><td>02-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td></tr>
+    <tr><td>5</td><td>03-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td></tr>
   </tbody>
 </table>
 <p>This was an excellent practical activity for applying my R coding skills!
