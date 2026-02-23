@@ -62,12 +62,14 @@ th {
 <p>I used this R code to tidy the data.</p>
 <pre>library(dplyr)
 
+#rename any states named "Chattisgarh"
 Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory` &lt;- which(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory` == "Chattisgarh") %&gt;% 
   replace(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`, ., "Chhattisgarh")
 
 #get row numbers of states starting with "Union Territory of "
 ut &lt;- which(substr(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`, 1, 19) == "Union Territory of ")
 
+#remove "Union Territory of " from the start of any state names
 Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`[ut] &lt;-
   substr(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`[ut], 20, nchar(Covid19_India_Jan_20_Mar_20_$`State/UnionTerritory`[ut]))
 </pre>
@@ -123,7 +125,7 @@ FALSE  TRUE
    55   215
 </pre>
 <p>I also checked this produced the opposite result if I used <span class='monospace'>Cured > 0</span>.</p>
-<pre>table(Covid19_India_Jan_20_Mar_20_$Cured > 0)
+<pre>table(Covid19_India_Jan_20_Mar_20_$Cured &gt; 0)
 
 FALSE  TRUE
   215    55
@@ -135,7 +137,7 @@ FALSE  TRUE
 20.37037 79.62963
 </pre>
 <p>I added a variable <span class='monospace'>has_recovery</span> that indicates whether any recoveries were reported.</p>
-<pre>Covid19_India_Jan_20_Mar_20_$has_recovery <- Covid19_India_Jan_20_Mar_20_$Cured > 0
+<pre>Covid19_India_Jan_20_Mar_20_$has_recovery &lt;- Covid19_India_Jan_20_Mar_20_$Cured &gt; 0
 </pre>
 <table class='monospace'>
   <thead>
@@ -150,7 +152,7 @@ FALSE  TRUE
   </tbody>
 </table>
 <p>I added another variable <span class='monospace'>has_deaths</span> that indicates whether any deaths were reported.</p>
-<pre>Covid19_India_Jan_20_Mar_20_$has_deaths <- Covid19_India_Jan_20_Mar_20_$Deaths > 0
+<pre>Covid19_India_Jan_20_Mar_20_$has_deaths &lt;- Covid19_India_Jan_20_Mar_20_$Deaths &gt; 0
 </pre>
 <table class='monospace'>
   <thead>
@@ -171,7 +173,7 @@ FALSE  TRUE
   245    25
 </pre>
 <p>I converted the <span class='monospace'>has_deaths</span> variable to a factor variable <span class='monospace'>has_deaths_factor</span> with labels "No Deaths" and "Deaths Reported".</p>
-<pre>Covid19_India_Jan_20_Mar_20_$has_deaths_factor <- factor(Covid19_India_Jan_20_Mar_20_$has_deaths, labels = c("No Deaths", "Deaths Reported"))</pre>
+<pre>Covid19_India_Jan_20_Mar_20_$has_deaths_factor &lt;- factor(Covid19_India_Jan_20_Mar_20_$has_deaths, labels = c("No Deaths", "Deaths Reported"))</pre>
 <table class='monospace'>
   <thead>
     <tr><th>Sno</th><th>Date</th><th>State/UnionTerritory</th><th>ConfirmedIndianNational</th><th>ConfirmedForeignNational</th><th>Cured</th><th>Deaths</th><th>has_recovery</th><th>has_deaths</th><th>has_deaths_factor</th></tr>
@@ -182,6 +184,27 @@ FALSE  TRUE
     <tr><td>3</td><td>01-02-2020</td><td>Kerala</td><td>2</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td><td>No Deaths</td></tr>
     <tr><td>4</td><td>02-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td><td>No Deaths</td></tr>
     <tr><td>5</td><td>03-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td><td>No Deaths</td></tr>
+  </tbody>
+</table>
+<p>Finally I created a categorical variable called case_level based on total confirmed cases - Indian nationals and foreign nationals.<br>
+0 total cases: "No Cases"<br>
+1-5 total cases: "Low Cases"<br>
+6-15 total cases: "Medium Cases"<br>
+16+ total cases: "High Cases"</p>
+<pre>Covid19_India_Jan_20_Mar_20_$case_level &lt;- as.factor(ifelse(Covid19_India_Jan_20_Mar_20_$ConfirmedIndianNational + Covid19_India_Jan_20_Mar_20_$ConfirmedForeignNational &lt; 1, "No Cases",
+                                                            ifelse(Covid19_India_Jan_20_Mar_20_$ConfirmedIndianNational + Covid19_India_Jan_20_Mar_20_$ConfirmedForeignNational &lt; 6, "Low Cases",
+                                                                   ifelse(Covid19_India_Jan_20_Mar_20_$ConfirmedIndianNational + Covid19_India_Jan_20_Mar_20_$ConfirmedForeignNational &lt; 16, "Medium Cases", "High Cases"))))
+</pre>
+<table class='monospace'>
+  <thead>
+    <tr><th>Sno</th><th>Date</th><th>State/UnionTerritory</th><th>ConfirmedIndianNational</th><th>ConfirmedForeignNational</th><th>Cured</th><th>Deaths</th><th>has_recovery</th><th>has_deaths</th><th>has_deaths_factor</th><th>case_level</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>30-01-2020</td><td>Kerala</td><td>1</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td><td>No Deaths</td><td>Low Cases</td></tr>
+    <tr><td>2</td><td>31-01-2020</td><td>Kerala</td><td>1</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td><td>No Deaths</td><td>Low Cases</td></tr>
+    <tr><td>3</td><td>01-02-2020</td><td>Kerala</td><td>2</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td><td>No Deaths</td><td>Low Cases</td></tr>
+    <tr><td>4</td><td>02-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td><td>No Deaths</td><td>Low Cases</td></tr>
+    <tr><td>5</td><td>03-02-2020</td><td>Kerala</td><td>3</td><td>0</td><td>0</td><td>0</td><td>FALSE</td><td>FALSE</td><td>No Deaths</td><td>Low Cases</td></tr>
   </tbody>
 </table>
 <p>This was an excellent practical activity for applying my R coding skills!
