@@ -216,7 +216,7 @@ FALSE  TRUE
   geom_bar() + 
   labs(y = "state", title = "COVID-19 reports from Indian states Jan-Mar 2020")
 </pre>
-<p><img href='coronavirus_recovery_1.png'></p>
+<p><img src='coronavirus_recovery_1.png'></p>
 <p>I made a pie chart showing the distribution of case severity levels, using total cases of Indian nationals and foreign nationals.</p>
 <pre>Covid19_India_Jan_20_Mar_20_ %>%
   group_by(case_level) %>% 
@@ -229,14 +229,14 @@ FALSE  TRUE
   scale_fill_discrete(breaks = c("High Cases", "Medium Cases", "Low Cases")) + 
   theme(axis.text.x = element_blank())
 </pre>
-<p><img href='coronavirus_recovery_2.png'></p>
+<p><img src='coronavirus_recovery_2.png'></p>
 <p>I made a histogram showing the distribution of recovery numbers.</p>
 <pre>Covid19_India_Jan_20_Mar_20_ %>% 
   ggplot(aes(Cured)) + 
   geom_histogram(bins = 10) + 
   labs(title = "Distribution of COVID-19 recovery numbers in India Jan-Mar 2020")
 </pre>
-<p><img href='coronavirus_recovery_3.png'></p>
+<p><img src='coronavirus_recovery_3.png'></p>
 <p>I made a line chart showing the trend of total cases over time.</p>
 <pre>Covid19_India_Jan_20_Mar_20_ %>% 
   arrange(date_converted) %>% 
@@ -247,6 +247,6 @@ FALSE  TRUE
   geom_line() + 
   labs(title = "Cumulative total of COVID-19 cases in India Jan-Mar 2020", x = "date", y = "cumulative total")
 </pre>
-<p><img href='coronavirus_recovery_4.png'></p>
+<p><img src='coronavirus_recovery_4.png'></p>
 <p>Working through these activities really helped me apply what I've learned about RStudio, and I'm sure I'll be using RStudio a lot in my career as a data scientist!</p>
 </div>
