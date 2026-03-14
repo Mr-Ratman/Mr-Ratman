@@ -1,0 +1,113 @@
+<p><i>(Thanks to my fellow students Julio Espinosa Rifel and Veli Mahlangu for your suggestions, which I've used to improve my initial post.)</i></p>
+<h4 style="border:1px solid #000000;padding:5px;background-color:#ADFF2F;">Application of Descriptive Statistics and Visualisation</h4>
+<p>Our task was to take data from <a href='https://www.bmj.com/content/309/6957/777' target='_blank'>this article</a> about general practitioners' opinions on intrapartum care (The British Medical Journal, 1994) and display it as plots to make it easier for the reader to understand.</p>
+<p>Here are the first few rows from <a href='https://www.bmj.com/highwire/markup/600857/expansion?width=1000&height=500&iframe=true&postprocessors=highwire_figures%2Chighwire_math' target='_blank'>the original table</a> - there are actually 24 statements.</p> 
+<table border='1' cellpadding='10' style='border-collapse: collapse;'>
+  <thead style='font-weight: bold;'>
+    <tr><td></td><td colspan='3'>No (%) of general practitioners</td></tr>
+    <tr><td>Statement</td><td>Agree</td><td>No opinion</td><td>Disagree</td></tr>
+  </thead>
+  <tbody>
+    <tr><td>Ideally, I would like to be able to offer more intrapartum care to my patients</td><td>124 (23)</td><td>61 (11)</td><td>358 (66)</td></tr>
+    <tr><td>I believe that I am sufficiently competent in obstetrics to be able to offer intrapartum care to my patients</td><td>153 (28)</td><td>42 (8)</td><td>349 (64)</td></tr>
+    <tr><td>I am discouraged from offering intrapartum care by: My lack of confidence</td><td>267 (49)</td><td>62 (11)</td><td>217 (40)</td></tr>
+  </tbody>
+</table>
+<h5 style="border:5px solid #ADFF2F;background-color:#ADFF2F;">Preparing Data</h5>
+<p>I used Google Sheets to prepare the data to import into RStudio.</p>
+<p>I used these functions to extract the number of GPs and the percentage of GPs from each cell.</p>
+<p>This function extracts the number of GPs by taking everything to the left of the space.</p>
+<pre>= LEFT(B2, FIND(" ", B2))</pre>
+<p>This function extracts the percentage of GPs by taking everything between the brackets.</p>
+<pre>= VALUE(MID(B2, FIND("(", B2) + 1, LEN(B2) - FIND("(", B2) - 1))</pre>
+<p>I decided to check that the percentages for each statement did actually all add to around 100% - I used this function to add the percentages from "Agree", "No opinion" and "Disagree".</p>
+<pre>= H2 + I2 + J2</pre>
+<p>This showed that all the percentages added to 100 (or 99 or 101 because of rounding) except for row 8, which had these values.</p>
+<table border='1' cellpadding='10' style='border-collapse: collapse;'>
+  <thead style='font-weight: bold;'>
+    <tr><td>Statement</td><td>Agree</td><td>No opinion</td><td>Disagree</td><td>total percentage</td></tr>
+  </thead>
+  <tbody>
+    <tr><td>I am discouraged from offering intrapartum care by: Attitudes of my fellow partners</td><td>203 (37)</td><td>109 (20)</td><td>178 (33)</td><td>90</td></tr>
+  </tbody>
+</table>
+<p>The percentages added to 90, so I recalculated them for that row - here are the new values, which now add to 99 (because of rounding).</p>
+<table border='1' cellpadding='10' style='border-collapse: collapse;'>
+  <thead style='font-weight: bold;'>
+    <tr><td>Statement</td><td>Agree</td><td>No opinion</td><td>Disagree</td><td>total percentage</td></tr>
+  </thead>
+  <tbody>
+    <tr><td>I am discouraged from offering intrapartum care by: Attitudes of my fellow partners</td><td>203 (41)</td><td>109 (22)</td><td>178 (36)</td><td>99</td></tr>
+  </tbody>
+</table>
+<p>Many statements actually finished the sentence beginning "I am discouraged from offering intrapartum care by:" but this wasn't clear in the table, so I made all of these statements complete in themselves.</p>
+<p>Here are the first few rows of the prepared data.</p> 
+<table border='1' cellpadding='10' style='border-collapse: collapse;'>
+  <thead style='font-weight: bold;'>
+    <tr><td>Statement</td><td>Agree (raw)</td><td>No opinion (raw)</td><td>Disagree (raw)</td><td>Agree (num)</td><td>No opinion (num)</td><td>Disagree (num)</td><td>Agree (perc)</td><td>No opinion (perc)</td><td>Disagree (perc)</td><td>total percentage</td></tr>
+  </thead>
+  <tbody>
+    <tr><td>Ideally, I would like to be able to offer more intrapartum care to my patients</td><td>124 (23)</td><td>61 (11)</td><td>358 (66)</td><td>124</td><td>61</td><td>358</td><td>23</td><td>11</td><td>66</td><td>100</td></tr>
+    <tr><td>I believe that I am sufficiently competent in obstetrics to be able to offer intrapartum care to my patients</td><td>153 (28)</td><td>42 (8)</td><td>349 (64)</td><td>153</td><td>42</td><td>349</td><td>28</td><td>8</td><td>64</td><td>100</td></tr>
+    <tr><td>I am discouraged from offering intrapartum care by: My lack of confidence</td><td>267 (49)</td><td>62 (11)</td><td>217 (40)</td><td>267</td><td>62</td><td>217</td><td>49</td><td>11</td><td>40</td><td>100</td></tr>
+  </tbody>
+</table>
+<p>I exported the data as a CSV file then imported it into RStudio (University of Essex Online, 2026).</p>
+<h5 style="border:5px solid #ADFF2F;background-color:#ADFF2F;">Data Plots</h5>
+<p>I wanted to visually show which statements the GPs felt most strongly about, so I decided to summarise the data for the reader by making a diverging stacked bar chart.</p>
+<p>I copied the "Agree" column to a column called "order" to make it easier to order the bars in the bar chart.</p>
+<pre>responses$order <- responses$Agree</pre>
+<p>I made a new tibble called "responses_summary" which put the opinion type ("Agree", "No opinion" or "Disagree") into one column (Bader, M. K. F. and Leuzinger, S., 2024).</p>
+<pre>responses_summary <- responses %>% 
+  select(Statement, Agree, `No opinion`, Disagree, order) %>% 
+  pivot_longer(
+    cols = c("Agree", "No opinion", "Disagree"), 
+    names_to = "opinion", 
+    values_to = "percentage"
+  )
+</pre>
+<p>I changed the "opinion" column to a factor variable in the order I wanted the opinion types to be displayed.</p>
+<pre>responses_summary$opinion = factor(responses_summary$opinion, levels = c("Agree", "No opinion", "Disagree"))</pre>
+<p>I plotted the results, ordered by the "Agree" percentage.</p>
+<pre>responses_summary %>% 
+  ggplot(aes(x = percentage, y = reorder(Statement, order), fill = opinion)) +
+  geom_col() +
+  theme(axis.text.y = element_text(size = 8)) +
+  geom_text(aes(label = paste(percentage, "%")), position = position_stack(vjust = 0.5)) +
+  labs(title = "Opinions of 550 Nottinghamshire GPs on Intrapartum Care", x = "percentage of GPs", y = "statement")
+</pre>
+<p><img src='intrapartum_care_opinions_bar_initial.png' style='width: 750px;'></p>
+<p>I decided to improve the bar chart by wrapping the text of the statements (Wickham, H., Mine, C.R. and Grolemund, G., 2023).</p>
+<pre>responses_summary %>% 
+  ggplot(aes(x = percentage, y = reorder(Statement, order), fill = opinion)) +
+  geom_col() +
+  scale_y_discrete(labels = function(y) str_wrap(y, width = 105)) +
+  theme(axis.text.y = element_text(size = 8)) +
+  geom_text(aes(label = paste(percentage, "%")), position = position_stack(vjust = 0.5)) +
+  labs(title = "Opinions of 550 Nottinghamshire GPs on Intrapartum Care", x = "percentage of GPs", y = "statement")
+</pre>
+<p><img src='intrapartum_care_opinions_bar.png' style='width: 1000px;'></p>
+<p>The bar chart shows clearly which statements the GPs strongly agreed or disagreed with. If you read the statements, it also shows that the statements the GPs felt the most strongly about were statements involving their freedom of choice and their work load. They agreed strongly with statements about having more choice and less work, but disagreed strongly with statements about having less choice and more work. Perhaps surprisingly, they often had "no opinion" about statements involving payments.</p>
+<p>I also used a lollipop chart to show the 3 statements from each opinion type which had the highest percentages, in other words the 3 statements which had the highest "Agree" percentage, the 3 statements which had the highest "No opinion" percentage, and the 3 statements which had the highest "Disagree" percentage.</p>
+<p>I made a new tibble called "lollipop_data" with the top 3 statements for each opinion type.</p>
+<pre>lollipop_data <- responses_summary %>% 
+  group_by(opinion) %>% 
+  slice_max(percentage, n = 3)
+</pre>
+<p>I plotted the results, grouped by opinion type.</p>
+<pre>lollipop_data %>% 
+  ggplot(aes(x = percentage, y = reorder(Statement, order), color = opinion)) +
+  geom_segment(aes(x = 0, xend = percentage)) +
+  geom_point(size = 4) +
+  scale_y_discrete(labels = function(y) str_wrap(y, width = 75)) +
+  scale_color_discrete(breaks = c("Agree", "No opinion", "Disagree")) +
+  labs(title = "Top 3 Statements by Opinion Type", x = "percentage", y = "statement")
+</pre>
+<p><img src='intrapartum_care_opinions_lollipop.png' style='width: 1000px;'></p>
+<p>Presenting the data in this way, which shows which statements the GPs feel most strongly about, can help decision-makers choose which areas of improvement to focus on.</p>
+<p>When completing this task I learned to use many features of Rstudio and ggplot2, particularly preparing data and using advanced features for formatting bar charts.</p>
+<h5 style="border:1px solid #000000;padding:5px;background-color:#ADFF2F;">References</h5>
+<p>The British Medical Journal (1994) <i>Opinions of general practioners in Nottinghamshire about provision of intrapartum care.</i> Available at: <a href='https://www.bmj.com/content/309/6957/777' target='_blank'>https://www.bmj.com/content/309/6957/777</a> (Accessed: 27 February 2026).</p>
+<p>Bader, M. K. F. and Leuzinger, S. (2024) <i>R-ticulate: A Beginner’s Guide to Data Analysis for Natural Scientists.</i> Hoboken: Wiley.</p>
+<p>Wickham, H., Mine, C.R. and Grolemund, G. (2023) <i>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data.</i> California: O'Reilly.</p>
+<p>University of Essex Online (2026) <i>Data Management in R.</i> Available at: <a href='https://www.my-course.co.uk/mod/scorm/player.php?a=23384&scoid=46852' target='_blank'>https://www.my-course.co.uk/mod/scorm/player.php?a=23384&scoid=46852</a> (Accessed: 27 February 2026).</p>
