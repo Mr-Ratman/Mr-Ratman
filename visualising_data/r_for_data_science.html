@@ -83,6 +83,69 @@ table2_population &lt;- table2 |&gt;
 and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the decimal point.</p>
 <pre>table2$count &lt;- formatC(table2$count, format= "f", drop0trailing = TRUE)</pre>
 <p>Here's the resulting table2.</p>
+<table>
+<thead>
+<tr>
+  <th></th><th>country</th><th>year</th><th>type</th><th>count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td><td>Afghanistan</td><td>1999</td><td>cases</td><td>745</td>
+</tr>
+<tr>
+  <td>2</td><td>Afghanistan</td><td>1999</td><td>population</td><td>19987071</td>
+</tr>
+<tr>
+  <td>3</td><td>Afghanistan</td><td>1999</td><td>rate</td><td>0.3727</td>
+</tr>
+<tr>
+  <td>4</td><td>Afghanistan</td><td>2000</td><td>cases</td><td>2666</td>
+</tr>
+<tr>
+  <td>5</td><td>Afghanistan</td><td>2000</td><td>population</td><td>20595360</td>
+</tr>
+<tr>
+  <td>6</td><td>Afghanistan</td><td>2000</td><td>rate</td><td>1.2945</td>
+</tr>
+<tr>
+  <td>7</td><td>Brazil</td><td>1999</td><td>cases</td><td>37737</td>
+</tr>
+<tr>
+  <td>8</td><td>Brazil</td><td>1999</td><td>population</td><td>172006362</td>
+</tr>
+<tr>
+  <td>9</td><td>Brazil</td><td>1999</td><td>rate</td><td>2.1939</td>
+</tr>
+<tr>
+  <td>10</td><td>Brazil</td><td>2000</td><td>cases</td><td>80488</td>
+</tr>
+<tr>
+  <td>11</td><td>Brazil</td><td>2000</td><td>population</td><td>174504898</td>
+</tr>
+<tr>
+  <td>12</td><td>Brazil</td><td>2000</td><td>rate</td><td>4.6124</td>
+</tr>
+<tr>
+  <td>13</td><td>China</td><td>1999</td><td>cases</td><td>212258</td>
+</tr>
+<tr>
+  <td>14</td><td>China</td><td>1999</td><td>population</td><td>1272915272</td>
+</tr>
+<tr>
+  <td>15</td><td>China</td><td>1999</td><td>rate</td><td>1.6675</td>
+</tr>
+<tr>
+  <td>16</td><td>China</td><td>2000</td><td>cases</td><td>213766</td>
+</tr>
+<tr>
+  <td>17</td><td>China</td><td>2000</td><td>population</td><td>1280428583</td>
+</tr>
+<tr>
+  <td>18</td><td>China</td><td>2000</td><td>rate</td><td>1.6695</td>
+</tr>
+</tbody>
+</table>
 <pre>table3 &lt;- tribble(
   ~country, ~year, ~rate,
   "Afghanistan", 1999, "745/19987071",
