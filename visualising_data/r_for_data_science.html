@@ -39,7 +39,7 @@ img {
 <h4>Chapter 5</h4>
 <pre>library(tidyverse)
 
-table2 <- tribble(
+table2 &lt;- tribble(
   ~country, ~year, ~type, ~count,
   "Afghanistan", 1999, "cases", 745,
   "Afghanistan", 1999, "population", 19987071,
@@ -55,26 +55,26 @@ table2 <- tribble(
   "China", 2000, "population", 1280428583
 )
 
-table2_cases <- table2 |>
-  filter(type == "cases") |>
-  select(count) |>
+table2_cases &lt;- table2 |&gt;
+  filter(type == "cases") |&gt;
+  select(count) |&gt;
   pull(count)
 
-table2_population <- table2 |>
-  filter(type == "population") |>
-  select(count) |>
+table2_population &lt;- table2 |&gt;
+  filter(type == "population") |&gt;
+  select(count) |&gt;
   pull(count)
 
-table2_rate <- table2_cases / table2_population * 10000
+table2_rate &lt;- table2_cases / table2_population * 10000
 
 for(i in seq(nrow(table2), 1, by = -2)) {
-  table2 <- add_row(table2, country = table2$country[i], year = table2$year[i], type = "rate", count = table2_rate[i/2], .after = i)
+  table2 &lt;- add_row(table2, country = table2$country[i], year = table2$year[i], type = "rate", count = table2_rate[i/2], .after = i)
 }
 
 #format="f" removes scientific format, drop0trailing drops zeros after decimal point
-table2$count <- formatC(table2$count, format="f", drop0trailing = TRUE)
+table2$count &lt;- formatC(table2$count, format="f", drop0trailing = TRUE)
 
-table3 <- tribble(
+table3 - tribble(
   ~country, ~year, ~rate,
   "Afghanistan", 1999, "745/19987071",
   "Afghanistan", 2000, "2666/20595360",
@@ -84,10 +84,10 @@ table3 <- tribble(
   "China", 2000, "213766/1280428583"
 )
 
-cases_population <- str_split(table3$rate, "/")
+cases_population &lt;- str_split(table3$rate, "/")
 
 for(i in 1:nrow(table3)) {
-  table3$rate[i] <- as.numeric(cases_population[[i]][1])/as.numeric(cases_population[[i]][2]) * 10000
+  table3$rate[i] &lt;- as.numeric(cases_population[[i]][1])/as.numeric(cases_population[[i]][2]) * 10000
 }
 </pre>
 <h4>Chapter 7</h4>
@@ -132,7 +132,7 @@ read_csv("a,b\n1,2\na,b") # column names seem to be repeated
 read_csv("a;b\n1;3") # if delimeter is semicolon use read_delim
 
 # 6 Practice referring to nonsyntactic names in the following data frame by:
-annoying <- tibble(
+annoying &lt;- tibble(
   `1` = 1:10,
   `2` = `1` * 2 + rnorm(length(`1`))
 )
@@ -141,9 +141,9 @@ annoying$`1`
 # b Plotting a scatterplot of 1 versus 2.
 plot(annoying$`1`, annoying$`2`)
 # c Creating a new column called 3, which is 2 divided by 1.
-annoying$`3` <- annoying$`1` / annoying$`2`
+annoying$`3` &lt;- annoying$`1` / annoying$`2`
 # d Renaming the columns to one, two, and three:
-annoying <- annoying %>% 
+annoying &lt;- annoying %&gt;% 
   rename(one = `1`, two = `2`, three = `3`)
 </pre>
 </div>
