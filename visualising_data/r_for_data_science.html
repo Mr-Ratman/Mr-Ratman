@@ -36,4 +36,114 @@ img {
 <div class='container'>
 <h3><span class='italic'>R for Data Science</span> Exercises</h3>
 <p>Our task was to complete the exercises from chapters 5 and 7 of the brilliant <span class='italic'>R for Data Science</span> textbook.</p>
+<h4>Chapter 5</h4>
+<pre>library(tidyverse)
+
+table2 <- tribble(
+  ~country, ~year, ~type, ~count,
+  "Afghanistan", 1999, "cases", 745,
+  "Afghanistan", 1999, "population", 19987071,
+  "Afghanistan", 2000, "cases", 2666,
+  "Afghanistan", 2000, "population", 20595360,
+  "Brazil", 1999, "cases", 37737,
+  "Brazil", 1999, "population", 172006362,
+  "Brazil", 2000, "cases", 80488,
+  "Brazil", 2000, "population", 174504898,
+  "China", 1999, "cases", 212258,
+  "China", 1999, "population", 1272915272,
+  "China", 2000, "cases", 213766,
+  "China", 2000, "population", 1280428583
+)
+
+table2_cases <- table2 |>
+  filter(type == "cases") |>
+  select(count) |>
+  pull(count)
+
+table2_population <- table2 |>
+  filter(type == "population") |>
+  select(count) |>
+  pull(count)
+
+table2_rate <- table2_cases / table2_population * 10000
+
+for(i in seq(nrow(table2), 1, by = -2)) {
+  table2 <- add_row(table2, country = table2$country[i], year = table2$year[i], type = "rate", count = table2_rate[i/2], .after = i)
+}
+
+#format="f" removes scientific format, drop0trailing drops zeros after decimal point
+table2$count <- formatC(table2$count, format="f", drop0trailing = TRUE)
+
+table3 <- tribble(
+  ~country, ~year, ~rate,
+  "Afghanistan", 1999, "745/19987071",
+  "Afghanistan", 2000, "2666/20595360",
+  "Brazil", 1999, "37737/172006362",
+  "Brazil", 2000, "80488/174504898",
+  "China", 1999, "212258/1272915272",
+  "China", 2000, "213766/1280428583"
+)
+
+cases_population <- str_split(table3$rate, "/")
+
+for(i in 1:nrow(table3)) {
+  table3$rate[i] <- as.numeric(cases_population[[i]][1])/as.numeric(cases_population[[i]][2]) * 10000
+}
+</pre>
+<h4>Chapter 7</h4>
+<pre>library(tidyverse)
+
+# 1 What function would you use to read a file where fields were separated with |?
+read_delim(delim = "|")
+
+# 2 Apart from file, skip, and comment, what other arguments do read_csv() and read_tsv() have in common?
+read.csv(
+  col_names = TRUE,
+  col_types = NULL,
+  col_select = NULL,
+  id = NULL,
+  locale = default_locale(),
+  na = c("", "NA"),
+  quoted_na = deprecated(),
+  quote = "\"",
+  trim_ws = TRUE,
+  n_max = Inf,
+  guess_max = min(1000, n_max),
+  name_repair = "unique",
+  num_threads = readr_threads(),
+  show_col_types = should_show_types(),
+  skip_empty_rows = TRUE,
+  lazy = should_read_lazy()
+)
+
+# 3 What are the most important arguments to read_fwf()?
+fwf_widths()
+fwf_positions()
+
+# 4 What argument does read_csv() need to read this text?
+# "x,y\n1,'a,b'"
+quote = "'"
+
+# 5 What is wrong with these statements?
+read_csv("a,b\n1,2,3\n4,5,6") # column name is missing
+read_csv("a,b,c\n1,2\n1,2,3,4") # rows have different numbers of columns
+read_csv("a,b\n\"1") # quoted value not completed, rows have different numbers of columns
+read_csv("a,b\n1,2\na,b") # column names seem to be repeated
+read_csv("a;b\n1;3") # if delimeter is semicolon use read_delim
+
+# 6 Practice referring to nonsyntactic names in the following data frame by:
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+# a Extracting the variable called 1.
+annoying$`1`
+# b Plotting a scatterplot of 1 versus 2.
+plot(annoying$`1`, annoying$`2`)
+# c Creating a new column called 3, which is 2 divided by 1.
+annoying$`3` <- annoying$`1` / annoying$`2`
+# d Renaming the columns to one, two, and three:
+annoying <- annoying %>% 
+  rename(one = `1`, two = `2`, three = `3`)
+</pre>
 </div>
