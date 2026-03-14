@@ -37,7 +37,7 @@ img {
 <h3><span class='italic'>R for Data Science</span> Exercises</h3>
 <p>Our task was to complete the exercises from chapters 5 and 7 of the brilliant <span class='italic'>R for Data Science</span> textbook.</p>
 <h4>Chapter 5</h4>
-<p>These exercises were for practising handling data that is not "tidy" - the data doesn't follow these rules.</p>
+<p>These exercises were for practising handling data that is not "tidy" - data that doesn't follow these rules.</p>
 <ol>
   <li>Each variable is a column; each column is a variable.</li>
   <li>Each observation is a row; each row is an observation.</li>
@@ -109,6 +109,7 @@ and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the de
     <tr><td>18</td><td>China</td><td>2000</td><td>rate</td><td>1.6695</td></tr>
   </tbody>
 </table>
+<p>table3 has a column for the values "cases" and "population" together - this is "untidy" because these values could be in separate columns.</p>
 <pre>table3 &lt;- tribble(
   ~country, ~year, ~rate,
   "Afghanistan", 1999, "745/19987071",
