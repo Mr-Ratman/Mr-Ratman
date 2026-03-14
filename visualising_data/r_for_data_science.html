@@ -37,7 +37,7 @@ img {
 <h3><span class='italic'>R for Data Science</span> Exercises</h3>
 <p>Our task was to complete the exercises from chapters 5 and 7 of the brilliant <span class='italic'>R for Data Science</span> textbook.</p>
 <h4>Chapter 5</h4>
-<p>These exercises were practising handling data that is not "tidy" - the data doesn't follow these rules.</p>
+<p>These exercises were for practising handling data that is not "tidy" - the data doesn't follow these rules.</p>
 <ol>
   <li>Each variable is a column; each column is a variable.</li>
   <li>Each observation is a row; each row is an observation.</li>
@@ -72,7 +72,7 @@ table2_population &lt;- table2 |&gt;
   select(count) |&gt;
   pull(count)
 </pre>
-<p>I used these new vectors to create a vector for "rate".</p>
+<p>I used these new vectors to create a vector for "rate" - the number of tuberculosis cases for every 10,000 people.</p>
 <pre>table2_rate &lt;- table2_cases / table2_population * 10000</pre>
 <p>I looped backwards through table2 adding rows for "rate".</p>
 <pre>for(i in seq(nrow(table2), 1, by = -2)) {
