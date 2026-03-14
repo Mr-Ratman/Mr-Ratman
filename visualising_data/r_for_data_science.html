@@ -37,9 +37,15 @@ img {
 <h3><span class='italic'>R for Data Science</span> Exercises</h3>
 <p>Our task was to complete the exercises from chapters 5 and 7 of the brilliant <span class='italic'>R for Data Science</span> textbook.</p>
 <h4>Chapter 5</h4>
-<pre>library(tidyverse)
-
-table2 &lt;- tribble(
+<p>These exercises were practising handling data that is not "tidy" - the data doesn't follow these rules.</p>
+<ol>
+  <li>Each variable is a column; each column is a variable.</li>
+  <li>Each observation is a row; each row is an observation.</li>
+  <li>Each value is a cell; each cell is a single value.</li>
+</ol>
+<p>Our task was to calculate tuberculosis rates from tables of "untidy" data, <span class='italic'>without</span> making it tidy first.</p>
+<p>table2 has a column for the value "cases" or "population" - this is "untidy" because these values should be column names.</p>
+<pre>table2 &lt;- tribble(
   ~country, ~year, ~type, ~count,
   "Afghanistan", 1999, "cases", 745,
   "Afghanistan", 1999, "population", 19987071,
@@ -54,8 +60,9 @@ table2 &lt;- tribble(
   "China", 2000, "cases", 213766,
   "China", 2000, "population", 1280428583
 )
-
-table2_cases &lt;- table2 |&gt;
+</pre>
+<p>First I extracted the values for "cases" and "population" into vectors.</p>
+<pre>table2_cases &lt;- table2 |&gt;
   filter(type == "cases") |&gt;
   select(count) |&gt;
   pull(count)
@@ -64,17 +71,19 @@ table2_population &lt;- table2 |&gt;
   filter(type == "population") |&gt;
   select(count) |&gt;
   pull(count)
-
-table2_rate &lt;- table2_cases / table2_population * 10000
-
-for(i in seq(nrow(table2), 1, by = -2)) {
+</pre>
+<p>I used these new vectors to create a vector for "rate".</p>
+<pre>table2_rate &lt;- table2_cases / table2_population * 10000</pre>
+<p>I looped backwards through table2 adding rows for "rate".</p>
+<pre>for(i in seq(nrow(table2), 1, by = -2)) {
   table2 &lt;- add_row(table2, country = table2$country[i], year = table2$year[i], type = "rate", count = table2_rate[i/2], .after = i)
 }
-
-#format="f" removes scientific format, drop0trailing drops zeros after decimal point
-table2$count &lt;- formatC(table2$count, format="f", drop0trailing = TRUE)
-
-table3 - tribble(
+</pre>
+<p>I used <span class='monospace'>formatC</span> to format the "count" column - <span class='monospace'>format="f"</span> removes scientific format, 
+and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the decimal point.</p>
+<pre>table2$count &lt;- formatC(table2$count, format= "f", drop0trailing = TRUE)</pre>
+<p>Here's the resulting table2.</p>
+<pre>table3 &lt;- tribble(
   ~country, ~year, ~rate,
   "Afghanistan", 1999, "745/19987071",
   "Afghanistan", 2000, "2666/20595360",
