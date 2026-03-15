@@ -206,15 +206,18 @@ and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the de
   `2` = `1` * 2 + rnorm(length(`1`))
 )
 </pre>
-<p>Extract the variable called 1.</p>
+<p>Extract the variable called "1".</p>
 <pre>annoying$`1`</pre>
-<pre>[1]  1  2  3  4  5  6  7  8  9 10</pre>
-<p>Plot a scatterplot of 1 versus 2.</p>
+<pre> [1]  1  2  3  4  5  6  7  8  9 10</pre>
+<p>Plot a scatterplot of "1" versus "2".</p>
 <pre>plot(annoying$`1`, annoying$`2`)</pre>
 <p><img src='annoying_plot.png'></p>
-<p>Create a new column called 3, which is 2 divided by 1.</p>
+<p>Create a new column called "3", which is "2" divided by "1".</p>
 <pre>annoying$`3` &lt;- annoying$`1` / annoying$`2`</pre>
 <pre>annoying$`3`</pre>
+<pre> [1] 0.4346452 0.5703123 0.4004234 0.5342338 0.4240465 0.5135067 0.5526404 0.4910714
+ [9] 0.4889729 0.5659152
+</pre>
 <p>Rename the columns to "one", "two", and "three".</p>
 <pre>annoying &lt;- annoying %&gt;% 
   rename(one = `1`, two = `2`, three = `3`)
