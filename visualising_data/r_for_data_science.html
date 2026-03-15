@@ -142,7 +142,7 @@ and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the de
 </table>
 <h4>Chapter 7</h4>
 <p>These exercises were for practising importing data with <span class='monospace'>read_csv()</span>.</p>
-<p>This exercise has 5 <span class='monospace'>read_csv()</span> statements with errors. We had to work out the intention of each statement and correct it.</p>
+<p>The first exercise has 5 <span class='monospace'>read_csv()</span> statements with errors. We had to work out the intention of each statement and correct it.</p>
 <pre>1. read_csv("a,b\n1,2,3\n4,5,6")</pre>
 <p>The intention is to read 3 columns and 2 rows, but column 3 doesn't have a name - I corrected it to this.</p>
 <pre>read_csv("a,b,c\n1,2,3\n4,5,6")</pre>
@@ -155,9 +155,30 @@ and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the de
     <tr><td>4</td><td>5</td><td>6</td></tr>
   </tbody>
 </table>
-<pre>read_csv("a,b,c\n1,2\n1,2,3,4") # rows have different numbers of columns
-read_csv("a,b\n\"1") # quoted value not completed, rows have different numbers of columns
-read_csv("a,b\n1,2\na,b") # column names seem to be repeated
+<pre>2. read_csv("a,b,c\n1,2\n1,2,3,4")</pre>
+<p>The rows have different numbers of columns - I corrected it to this.</p>
+<pre>read_csv("a,b,c,d\n1,2,3,4\n1,2,3,4")</pre>
+<table>
+  <thead>
+    <tr><th>a</th><th>b</th><th>c</th><th>d</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+    <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+  </tbody>
+</table>
+<pre>3. read_csv("a,b\n\"1")</pre>
+<>The quotes around the value are not closed, and the rows have different numbers of columns - I corrected it to this.</p>
+<pre>read_csv("a,b\n\"1\",\"2\"")</pre>
+<table>
+  <thead>
+    <tr><th>a</th><th>b</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>2</td></tr>
+  </tbody>
+</table>
+<pre>read_csv("a,b\n1,2\na,b") # column names seem to be repeated
 read_csv("a;b\n1;3") # if delimeter is semicolon use read_delim
 
 # 6 Practice referring to nonsyntactic names in the following data frame by:
