@@ -83,7 +83,6 @@ table2_population &lt;- table2 |&gt;
 and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the decimal point.</p>
 <pre>table2$count &lt;- formatC(table2$count, format= "f", drop0trailing = TRUE)</pre>
 <p>Here's the resulting table2.</p>
-
 <table>
   <thead>
     <tr><th></th><th>country</th><th>year</th><th>type</th><th>count</th></tr>
@@ -119,13 +118,15 @@ and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the de
   "China", 1999, "212258/1272915272",
   "China", 2000, "213766/1280428583"
 )
-
-cases_population &lt;- str_split(table3$rate, "/")
-
-for(i in 1:nrow(table3)) {
+</pre>
+<p>I split the "rate" column into 2 values - cases and population.</p>
+<pre>cases_population &lt;- str_split(table3$rate, "/")</pre>
+<p>I replaced the values in the "rate" column with new calculated values - the number of tuberculosis cases for every 10,000 people.</p>
+<pre>for(i in 1:nrow(table3)) {
   table3$rate[i] &lt;- as.numeric(cases_population[[i]][1])/as.numeric(cases_population[[i]][2]) * 10000
 }
 </pre>
+<p>Here's the resulting table3.</p>
 <table>
   <thead>
     <tr><th>country</th><th>year</th><th>rate</th></tr>
@@ -140,42 +141,21 @@ for(i in 1:nrow(table3)) {
   </tbody>
 </table>
 <h4>Chapter 7</h4>
-<pre>library(tidyverse)
-
-# 1 What function would you use to read a file where fields were separated with |?
-read_delim(delim = "|")
-
-# 2 Apart from file, skip, and comment, what other arguments do read_csv() and read_tsv() have in common?
-read.csv(
-  col_names = TRUE,
-  col_types = NULL,
-  col_select = NULL,
-  id = NULL,
-  locale = default_locale(),
-  na = c("", "NA"),
-  quoted_na = deprecated(),
-  quote = "\"",
-  trim_ws = TRUE,
-  n_max = Inf,
-  guess_max = min(1000, n_max),
-  name_repair = "unique",
-  num_threads = readr_threads(),
-  show_col_types = should_show_types(),
-  skip_empty_rows = TRUE,
-  lazy = should_read_lazy()
-)
-
-# 3 What are the most important arguments to read_fwf()?
-fwf_widths()
-fwf_positions()
-
-# 4 What argument does read_csv() need to read this text?
-# "x,y\n1,'a,b'"
-quote = "'"
-
-# 5 What is wrong with these statements?
-read_csv("a,b\n1,2,3\n4,5,6") # column name is missing
-read_csv("a,b,c\n1,2\n1,2,3,4") # rows have different numbers of columns
+<p>These exercises were for practising importing data with <span class='monospace'>read_csv()</span>.</p>
+<p>This exercise has 5 <span class='monospace'>read_csv()</span> statements with errors. We had to work out the intention of each statement and correct it.</p>
+<pre>1. read_csv("a,b\n1,2,3\n4,5,6")</pre>
+<p>The intention is to read 3 columns and 2 rows, but column 3 doesn't have a name - I corrected it to this.</p>
+<pre>read_csv("a,b,c\n1,2,3\n4,5,6")</pre>
+<table>
+  <thead>
+    <tr><th>a</th><th>b</th><th>c</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>2</td><td>3</td></tr>
+    <tr><td>4</td><td>5</td><td>6</td></tr>
+  </tbody>
+</table>
+<pre>read_csv("a,b,c\n1,2\n1,2,3,4") # rows have different numbers of columns
 read_csv("a,b\n\"1") # quoted value not completed, rows have different numbers of columns
 read_csv("a,b\n1,2\na,b") # column names seem to be repeated
 read_csv("a;b\n1;3") # if delimeter is semicolon use read_delim
