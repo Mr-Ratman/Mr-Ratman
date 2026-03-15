@@ -168,7 +168,7 @@ and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the de
   </tbody>
 </table>
 <pre>3. read_csv("a,b\n\"1")</pre>
-<>The quotes around the value are not closed, and the rows have different numbers of columns - I corrected it to this.</p>
+<p>The quotes around the value are not closed, and the rows have different numbers of columns - I corrected it to this.</p>
 <pre>read_csv("a,b\n\"1\",\"2\"")</pre>
 <table>
   <thead>
@@ -178,10 +178,29 @@ and <span class='monospace'>drop0trailing = TRUE</span> drops zeros after the de
     <tr><td>1</td><td>2</td></tr>
   </tbody>
 </table>
-<pre>read_csv("a,b\n1,2\na,b") # column names seem to be repeated
-read_csv("a;b\n1;3") # if delimeter is semicolon use read_delim
-
-# 6 Practice referring to nonsyntactic names in the following data frame by:
+<pre>4. read_csv("a,b\n1,2\na,b")</pre>
+<p>The column names seem to be repeated - I corrected it to this.</p>
+<pre>read_csv("a,b\n1,2")</pre>
+<table>
+  <thead>
+    <tr><th>a</th><th>b</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>2</td></tr>
+  </tbody>
+</table>
+<pre>5. read_csv("a;b\n1;3")</pre>
+<p>The delimeter is a semicolon - I corrected it to this.</p>
+<pre>read_delim("a;b\n1;3", delim = ";")</pre>
+<table>
+  <thead>
+    <tr><th>a</th><th>b</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>3</td></tr>
+  </tbody>
+</table>
+<pre># 6 Practice referring to nonsyntactic names in the following data frame by:
 annoying &lt;- tibble(
   `1` = 1:10,
   `2` = `1` * 2 + rnorm(length(`1`))
