@@ -70,7 +70,7 @@ $ date_dis    &lt;date&gt; 2020-05-07, 2020-05-06, 2020-05-08, 2020-05-10, 2020-
  3rd Qu.:141.8   3rd Qu.: 90.00   3rd Qu.: 99696  
  Max.   :195.0   Max.   :115.00   Max.   :117210  
 </pre>
-<p>I used <span class='monospace'>count()</span> to find the mode ("income" had no mode).</p>
+<p>I used <span class='monospace'>count()</span> to find the mode.</p>
 <pre>Health_Data %&gt;% 
   count(sbp, sort = TRUE)
 
@@ -101,6 +101,7 @@ Health_Data %&gt;%
  2  53435     1
  3  53976     1
 </pre>
+<p>This showed "income" has no mode.</p>
 <p>I showed "income" on a boxplot.</p>
 <pre>Health_Data %&gt;% 
   ggplot(aes(y = income)) +
