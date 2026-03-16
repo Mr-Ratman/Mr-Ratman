@@ -32,7 +32,7 @@ img {
 <p><a href='index.html'>&larr; back</a></p>
 <div class='container'>
 <h3>Health Data Activity</h3>
-<p>Our task was to analyse a hospital patient data, specifically to see if there is any association between systolic blood pressure and peptic ulcers.</p>
+<p>Our task was to analyse hospital patient data, specifically to see if there is any association between systolic blood pressure and peptic ulcers.</p>
 <p>Here's a "glimpse" of the patient data.</p>
 <pre>glimpse(Health_Data)
 
@@ -101,7 +101,37 @@ Health_Data %&gt;%
  2  53435     1
  3  53976     1
 </pre>
+<p>I showed "income" on a boxplot.</p>
+<pre>Health_Data %&gt;% 
+  ggplot(aes(y = income)) +
+  geom_boxplot() +
+  labs(title = "Monthly Income from \"Health Data\"") +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+</pre>
 <p><img src='income_boxplot.png'></p>
-<p><img src='sbp_ulcers.png'></p>  
+<p>I showed "systolic blood pressure" on a boxplot for patients without and with peptic ulcers.</p>
+<pre>Health_Data %&gt;% 
+  ggplot(aes(x = factor(pepticulcer), y = sbp)) +
+  geom_boxplot() +
+  labs(title = "Systolic Blood Pressure of Patients with Peptic Ulcers", x = "peptic ulcers") +
+  scale_x_discrete(labels = c("no", "yes"))
+</pre>
+<p><img src='sbp_ulcers.png'></p>
+<p>The boxplot appears to show that patients with peptic ulcers have lower systolic blood pressure, 
+  and a Google search showed there is some evidence for this. 
+  I used a t-test to compare the data.</p>
+<pre>t.test(sbp ~ pepticulcer, data = Health_Data)
+
+	Welch Two Sample t-test
+
+data:  sbp by pepticulcer
+t = 1.2142, df = 57.562, p-value = 0.2296
+alternative hypothesis: true difference in means between group 1 and group 2 is not equal to 0
+95 percent confidence interval:
+ -2.889367 11.795703
+sample estimates:
+mean in group 1 mean in group 2 
+       131.3171        126.8639 
+</pre>
 <p>Working through these activities really helped me apply what I've learned about RStudio, and I'm sure I'll be using RStudio a lot in my career as a data scientist!</p>
 </div>
