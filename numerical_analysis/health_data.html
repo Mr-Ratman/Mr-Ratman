@@ -118,8 +118,8 @@ Health_Data %&gt;%
 </pre>
 <p><img src='sbp_ulcers.png'></p>
 <p>The boxplot appears to show that patients with peptic ulcers have lower systolic blood pressure, 
-  and a Google search showed there is some evidence for this. 
-  I used a t-test to compare the data.</p>
+  and a Google search showed there is some evidence for this.</p>
+<p>I used a t-test to compare the data.</p>
 <pre>t.test(sbp ~ pepticulcer, data = Health_Data)
 
 	Welch Two Sample t-test
@@ -133,5 +133,10 @@ sample estimates:
 mean in group 1 mean in group 2 
        131.3171        126.8639 
 </pre>
-<p>Working through these activities really helped me apply what I've learned about RStudio, and I'm sure I'll be using RStudio a lot in my career as a data scientist!</p>
+<p>The result shows that the p-value for this test is about 23%, 
+	which means there is a 23% possibility that these results are due to chance - 
+	this is not below 5%, which is generally considered "statistically significant".</p>
+<p>These results are not strong evidence that peptic ulcers cause lower systolic blood pressure.</p>
+<p>Working through this activity really helped me consider which statistics tests and R functions to use to answer the given questions, 
+	which is excellent practice for my career as a data scientist!</p>
 </div>
