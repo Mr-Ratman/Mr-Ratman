@@ -32,7 +32,7 @@ img {
 <p><a href='index.html'>&larr; back</a></p>
 <div class='container'>
 <h3>Health Data Activity</h3>
-<p>Our task was to analyse hospital patient data, specifically to see if there is any association between systolic blood pressure and peptic ulcers.</p>
+<p>Our task was to use hospital patient data to analyse the effects of certain variables on blood pressure.</p>
 <p>Here's a "glimpse" of the patient data.</p>
 <pre>glimpse(Health_Data)
 
@@ -110,6 +110,32 @@ Health_Data %&gt;%
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
 </pre>
 <p><img src='income_boxplot.png'></p>
+<p>Next we found the mean, median and mode of the "age" variable.</p>
+<p>I used <span class='monospace'>summary()</span> to find the mean and median.</p>
+<pre>Health_Data %&gt;%
+  select(age) %&gt;% 
+  summary()
+
+      age       
+ Min.   : 6.00  
+ 1st Qu.:21.00  
+ Median :27.00  
+ Mean   :26.51  
+ 3rd Qu.:32.00  
+ Max.   :45.00  
+</pre>
+<p>I used <span class='monospace'>count()</span> to find the mode.</p>
+<pre>Health_Data %&gt;% 
+  count(age, sort = TRUE)
+
+# A tibble: 35 × 2
+     age     n
+   &lt;dbl&gt; &lt;int&gt;
+ 1    26    16
+ 2    29    15
+ 3    20    14
+</pre>
+<p>Our next task was to see if there is any association between systolic blood pressure and peptic ulcers.</p>
 <p>I showed "systolic blood pressure" on a boxplot for patients without and with peptic ulcers.</p>
 <pre>Health_Data %&gt;% 
   ggplot(aes(x = factor(pepticulcer), y = sbp)) +
@@ -141,6 +167,28 @@ mean in group 1 mean in group 2
 	there's a 95% chance that the true difference between the actual population means is somewhere between 2.9 lower to 11.8 higher. 
 	This interval includes 0, which suggests there may be no real difference between the groups.</p>
 <p>These results are not strong evidence that peptic ulcers cause lower systolic blood pressure.</p>
-<p>Working through this activity really helped me consider which statistics tests and R functions to use to answer the given questions, 
+<p>Our next task was to see if there is any association between diastolic blood pressure and diabetes.</p>
+<p>I checked the diabetes categories with <span class='monospace'>distinct()</span>, 
+	then found the median diastolic blood pressure for patients without and with and without diabetes - they were almost the same.</p>
+<pre>Health_Data %>% 
+  distinct(diabetes)
+
+# A tibble: 2 × 1
+  diabetes 
+  &lt;dbl+lbl&gt;
+1 2 [No]   
+2 1 [Yes]  
+
+Health_Data %>% 
+  group_by(diabetes) %>% 
+  summarize(median(dbp))
+
+# A tibble: 2 × 2
+  diabetes  `median(dbp)`
+  &lt;dbl+lbl&gt;         &lt;dbl&gt;
+1 1 [Yes]              83
+2 2 [No]               82
+</pre>
+<p>Working through these activities really helped me consider which statistics tests and R functions to use to answer the given questions, 
 	which is excellent practice for my career as a data scientist!</p>
 </div>
