@@ -225,7 +225,7 @@ factor(occupation)   3    285    94.9   0.233  0.873
 Residuals          206  83800   406.8
 </pre>
 <p>The p-value is very high (0.873) which shows the differences between occupation groups are insignificant.</p>
-<p>I decided to graph the systolic blood pressure of the occupation groups with a density plot - this shows they are all very similar.</p>
+<p>I graphed the systolic blood pressure of the occupation groups with a density plot - this shows they are all very similar.</p>
 <pre>Health_Data %&gt;% 
   ggplot(aes(x = sbp, color = factor(occupation))) +
   geom_density() +
