@@ -170,7 +170,7 @@ mean in group 1 mean in group 2
 <p>Our next task was to see if there is any association between diastolic blood pressure and diabetes.</p>
 <p>I checked the diabetes categories with <span class='monospace'>distinct()</span>, 
 	then found the median diastolic blood pressure for patients without and with and without diabetes - they were almost the same.</p>
-<pre>Health_Data %>% 
+<pre>Health_Data %&gt;% 
   distinct(diabetes)
 
 # A tibble: 2 × 1
@@ -179,8 +179,8 @@ mean in group 1 mean in group 2
 1 2 [No]   
 2 1 [Yes]  
 
-Health_Data %>% 
-  group_by(diabetes) %>% 
+Health_Data %&gt;% 
+  group_by(diabetes) %&gt;% 
   summarize(median(dbp))
 
 # A tibble: 2 × 2
@@ -188,6 +188,32 @@ Health_Data %>%
   &lt;dbl+lbl&gt;         &lt;dbl&gt;
 1 1 [Yes]              83
 2 2 [No]               82
+</pre>
+<p>Our final task was to see if there is any association between systolic blood pressure and occupation.</p>
+<p>I checked the occupation categories with <span class='monospace'>distinct()</span>, 
+	then found the median diastolic blood pressure for patients by occupation - they were almost the same.</p>
+<pre>Health_Data %&gt;% 
+  distinct(occupation)
+
+# A tibble: 4 × 1
+  occupation     
+  &lt;dbl+lbl&gt;      
+1 1 [GOVT JOB]   
+2 4 [OTHERS]     
+3 2 [PRIVATE JOB]
+4 3 [BUSINESS]  
+
+Health_Data %&gt;% 
+  group_by(occupation) %&gt;% 
+  summarize(median(sbp))
+
+# A tibble: 4 × 2
+  occupation      `median(sbp)`
+  &lt;dbl+lbl&gt;               &lt;dbl&gt;
+1 1 [GOVT JOB]             126.
+2 2 [PRIVATE JOB]          120 
+3 3 [BUSINESS]             122 
+4 4 [OTHERS]               123 
 </pre>
 <p>Working through these activities really helped me consider which statistics tests and R functions to use to answer the given questions, 
 	which is excellent practice for my career as a data scientist!</p>
