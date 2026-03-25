@@ -191,7 +191,7 @@ Health_Data %&gt;%
 </pre>
 <p>Our final task was to see if there is any association between systolic blood pressure and occupation.</p>
 <p>I checked the occupation categories with <span class='monospace'>distinct()</span>, 
-	then found the median diastolic blood pressure for patients by occupation - they were almost the same.</p>
+	then found the median systolic blood pressure for patients by occupation - they were almost the same.</p>
 <pre>Health_Data %&gt;% 
   distinct(occupation)
 
@@ -215,6 +215,23 @@ Health_Data %&gt;%
 3 3 [BUSINESS]             122 
 4 4 [OTHERS]               123 
 </pre>
+<p>I did an ANOVA test to see if the systolic blood pressure data for any occupation was significantly different from the others.</p>
+<p>The p-value is very high (0.873), which shows the differences between occupation groups are insignificant.</p>
+<pre>Health_Data %>% 
+  aov(data = .,sbp ~ factor(occupation)) %>% 
+  summary()
+
+                    Df Sum Sq Mean Sq F value Pr(>F)
+factor(occupation)   3    285    94.9   0.233  0.873
+Residuals          206  83800   406.8
+</pre>
+<p>I decided to graph the systolic blood pressure of the occupation groups with a density plot - this shows they are all very similar.</p>
+<pre>Health_Data %>% 
+  ggplot(aes(x = sbp, color = factor(occupation))) +
+  geom_density() +
+  labs(title = "Systolic Blood Pressure by Occupation", color = "occupation")
+</pre>
+<p><img src='sbp_occupation.png'></p>
 <p>Working through these activities really helped me consider which statistics tests and R functions to use to answer the given questions, 
 	which is excellent practice for my career as a data scientist!</p>
 </div>
