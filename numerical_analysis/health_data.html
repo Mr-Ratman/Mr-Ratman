@@ -217,16 +217,16 @@ Health_Data %&gt;%
 </pre>
 <p>I did an ANOVA test to see if the systolic blood pressure data for any occupation was significantly different from the others.</p>
 <p>The p-value is very high (0.873), which shows the differences between occupation groups are insignificant.</p>
-<pre>Health_Data %>% 
-  aov(data = .,sbp ~ factor(occupation)) %>% 
+<pre>Health_Data %&gt;% 
+  aov(data = .,sbp ~ factor(occupation)) %&gt;% 
   summary()
 
-                    Df Sum Sq Mean Sq F value Pr(>F)
+                    Df Sum Sq Mean Sq F value Pr(&gt;F)
 factor(occupation)   3    285    94.9   0.233  0.873
 Residuals          206  83800   406.8
 </pre>
 <p>I decided to graph the systolic blood pressure of the occupation groups with a density plot - this shows they are all very similar.</p>
-<pre>Health_Data %>% 
+<pre>Health_Data %&gt;% 
   ggplot(aes(x = sbp, color = factor(occupation))) +
   geom_density() +
   labs(title = "Systolic Blood Pressure by Occupation", color = "occupation")
