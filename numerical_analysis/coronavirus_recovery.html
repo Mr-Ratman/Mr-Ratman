@@ -248,7 +248,7 @@ FALSE  TRUE
   labs(title = "Cumulative total of COVID-19 cases in India Jan-Mar 2020", x = "date", y = "cumulative total")
 </pre>
 <p><img src='coronavirus_recovery_4.png'></p>
-<p>I made a list of states showing total number of cases (Indian nationals and Foreign nationals) in order from highest to lowest.</p>
+<p>I made a list of states showing total number of cases (Indian nationals and foreign nationals) in order from highest to lowest.</p>
 <pre>Covid19_India_Jan_20_Mar_20_ %&gt;% 
   group_by(`State/UnionTerritory`) %&gt;% 
   summarise(total_cases = sum(ConfirmedIndianNational + ConfirmedForeignNational)) %&gt;% 
