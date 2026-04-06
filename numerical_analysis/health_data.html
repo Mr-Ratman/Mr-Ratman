@@ -239,7 +239,8 @@ Residuals          206  83800   406.8
 <pre>0.846808</pre>
 <p>The correlation is near 1, so this is a strong positive correlation.</p>
 <p>I graphed systolic blood pressure versus diastolic blood pressure and added a linear regression line.</p>
-<pre>ggplot(Health_Data, aes(x = sbp, y = dbp)) +
+<pre>Health_Data %&gt;% 
+  ggplot(aes(x = sbp, y = dbp)) +
   geom_point() +
   geom_smooth(method = "lm") +
   labs(title = "Systolic Blood Pressure vs. Diastolic Blood Pressure", x = "systolic blood pressure", y = "diastolic blood pressure")
