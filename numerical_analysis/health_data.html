@@ -237,8 +237,13 @@ Residuals          206  83800   406.8
 <p>I found the correlation between systolic blood pressure and diastolic blood pressure.</p>
 <pre>cor(Health_Data$sbp, Health_Data$dbp)</pre>
 <pre>0.846808</pre>
-<p>This number is near 1, so this is a strong positive correlation.</p>
+<p>The correlation is near 1, so this is a strong positive correlation.</p>
 <p>I graphed systolic blood pressure versus diastolic blood pressure and added a linear regression line.</p>
+<pre>ggplot(Health_Data, aes(x = sbp, y = dbp)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Systolic Blood Pressure vs. Diastolic Blood Pressure", x = "systolic blood pressure", y = "diastolic blood pressure")
+</pre>
 <p><img src='sbp_dbp.png'></p>
 <p>Working through these activities really helped me consider which statistics tests and R functions to use to answer the given questions, 
 	which is excellent practice for my career as a data scientist!</p>
