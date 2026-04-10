@@ -246,6 +246,26 @@ Residuals          206  83800   406.8
   labs(title = "Systolic Blood Pressure vs. Diastolic Blood Pressure", x = "systolic blood pressure", y = "diastolic blood pressure")
 </pre>
 <p><img src='sbp_dbp.png'></p>
+<p>I used the <span class='monospace'>lm()</span> function to perform a linear regression analysis.</p>
+<pre>summary(lm(dbp ~ sbp, data = Health_Data))
+	
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-16.7958  -3.9366   0.1804   3.6685  19.2042 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  19.4068     2.7931   6.948 4.67e-11 ***
+sbp           0.4960     0.0216  22.961  &lt; 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 6.264 on 208 degrees of freedom
+Multiple R-squared:  0.7171,	Adjusted R-squared:  0.7157 
+F-statistic: 527.2 on 1 and 208 DF,  p-value: &lt; 2.2e-16
+</pre>
+<p>This gives a formula for predicting diastolic blood pressure from systolic blood pressure.</p>
+<pre>dbp = 0.4960 * sbp + 19.4068</pre>
 <p>Working through these activities really helped me consider which statistics tests and R functions to use to answer the given questions, 
 	which is excellent practice for my career as a data scientist!</p>
 </div>
