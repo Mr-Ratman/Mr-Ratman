@@ -25,6 +25,9 @@ th, td {
 th {
   font-weight: bold;
 }
+.tall_rows td {
+  padding: 10px;
+}
 img {
   width: 75%;
 }
@@ -297,37 +300,114 @@ FALSE  TRUE
   </tbody>
 </table>
 <p>We used the data to calculate probabilities using Bayes Theorem.</p>
-<table>
+<table class='tall_rows'>
   <tbody>
     <tr>
       <td>the probability that a randomly selected report comes from Kerala</td>
       <td>
         <math>
+          <mi>P(Kerala)</mi>
+          <mo>=</mo>
           <mfrac>
             <mrow>
-              <mi>a</mi>
+              <mi>52</mi>
             </mrow>
             <mrow>
-              <mn>3</mn>
+              <mi>270</mi>
             </mrow>
           </mfrac>
+          <mo>=</mo>
+          <mi>19.3%</mi>
         </math>
       </td>
     </tr>
     <tr>
       <td>the probability that a randomly selected report shows recoveries</td>
-      <td></td>
+      <td>
+        <math>
+          <mi>P(recoveries)</mi>
+          <mo>=</mo>
+          <mfrac>
+            <mrow>
+              <mi>55</mi>
+            </mrow>
+            <mrow>
+              <mi>270</mi>
+            </mrow>
+          </mfrac>
+          <mo>=</mo>
+          <mi>20.4%</mi>
+        </math>
+      </td>
     </tr>
     <tr>
       <td>the probability that a Kerala report shows recoveries</td>
-      <td></td>
+      <td>
+        <math>
+          <mi>P(recoveries|Kerala)</mi>
+          <mo>=</mo>
+          <mfrac>
+            <mrow>
+              <mi>19</mi>
+            </mrow>
+            <mrow>
+              <mi>52</mi>
+            </mrow>
+          </mfrac>
+          <mo>=</mo>
+          <mi>36.5%</mi>
+        </math>
+      </td>
     </tr>
     <tr><td>the probability that a Delhi report shows recoveries</td>
-      <td></td>
+      <td>
+        <math>
+          <mi>P(recoveries|Delhi)</mi>
+          <mo>=</mo>
+          <mfrac>
+            <mrow>
+              <mi>8</mi>
+            </mrow>
+            <mrow>
+              <mi>20</mi>
+            </mrow>
+          </mfrac>
+          <mo>=</mo>
+          <mi>40%</mi>
+        </math>
+      </td>
     </tr>
     <tr>
       <td>if a report shows recoveries, the probability that it came from Kerala</td>
-      <td></td>
+      <td>
+        <math>
+          <mi>P(Kerala|recoveries)</mi>
+          <mo>=</mo>
+          <mfrac>
+            <mrow>
+              <mi>P(recoveries|Kerala)</mi>
+              <mo>x</mo>
+              <mi>P(Kerala)</mi>
+            </mrow>
+            <mrow>
+              <mi>P(recoveries)</mi>
+            </mrow>
+          </mfrac>
+          <mo>=</mo>
+          <mfrac>
+            <mrow>
+              <mi>0.365</mi>
+              <mo>x</mo>
+              <mi>0.193</mi>
+            </mrow>
+            <mrow>
+              <mi>0.204</mi>
+            </mrow>
+          </mfrac>
+          <mo>=</mo>
+          <mi>34.5%</mi>
+        </math>
+      </td>
     </tr>
   </tbody>
 </table>
