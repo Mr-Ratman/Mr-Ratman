@@ -1,0 +1,53 @@
+<link rel='icon' type='image/png' href='../favicon.png'>
+<style>
+html {
+  background-color: greenyellow;
+  font-family: sans-serif;
+}
+.container {
+  margin: 25px;
+  padding: 25px;
+  background-color: white;
+}
+img {
+  max-width: 50%;
+}
+</style>
+<p><a href='index.html'>&larr; back</a></p>
+<div class='container'>
+<h3>Dashboard Presentation</h3>
+<p>This is my final dashboard assignment for the Visualising Data module.</p>
+<p>Please go ahead and explore this interactive dashboard for visualising student flashcard progress! There's an instruction manual below.</p>
+<p><iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/4b943a8f-d725-412a-9c14-fa7d9c795ddb/page/6vgtF" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe></p>
+<h4>Flashcards Dashboard</h4>
+<p>This manual explains how to use the <a href='https://datastudio.google.com/reporting/4b943a8f-d725-412a-9c14-fa7d9c795ddb' target='_blank'>Flashcards Dashboard</a> for the <a href='https://dataandcode.co.uk/projects/project_2/' target='_blank'>Flashcards Web App</a>. The app boosts early reading and writing with personalised flashcards for students. The flashcards teach numbers, letters, words, number formation, letter formation, and spelling.</p>
+<h5>current lessons</h5>
+<p><img src='current_lessons.png'></p>
+<p>The current lessons table shows which set of flashcards each student is currently working on. The “learning” column shows which items from the current set of flashcards the student is learning, and the “known” column shows which items the student already knows. A value of “null” means the student is on a “testing” round - on the student’s next lesson, all items from the current set of flashcards will be tested.</p>
+<p>You can sort the table by clicking at the top of any column - click again to sort in descending order. (It’s probably most useful to sort by student name.) You can sort by multiple columns by holding Shift as you select.</p>
+<p>If you right-click on the table you can use advanced options such as freezing columns and exporting.</p>
+<h5>previous lessons</h5>
+<p><img src='previous_lessons.png'></p>
+<p>The previous lessons table shows results from all previous lessons for all students. The percentage column shows the percentage correct from that set of flashcards, so it’s easy to see progress within a set of flashcards over time - here’s an example showing one student's progress with “reading words set 1”.</p>
+<p><img src='previous_lessons_filtered.png'></p>
+<p>You can show a single student’s results using the drop-down menu at the top. Click on the student in the menu again to go back to showing all students.</p>
+<p>You can sort the table by clicking at the top of any column - click again to sort in descending order. You can sort by multiple columns by holding Shift as you select.</p>
+<p>If you right-click on the table you can use advanced options such as freezing columns and exporting.</p>
+<h5>lesson order</h5>
+<p><img src='lesson_order.png'></p>
+<p>The lesson order table shows the default order for the sets of flashcards. This helps determine where students are in the overall order of lessons, for example, if a student’s current lesson is “reading blends”, he or she has finished 5 sets of flashcards and has 10 sets to go.</p>
+<h5>class total</h5>
+<p><img src='class_total.png'></p>
+<p>This chart shows how many items in total the class has learned over time. In the default sets of flashcards there are 399 items in total, so for a class of 20 students the grand total would be 7980 items to learn.</p>
+<p>You can hover over the trend line to get the details of a particular date.</p>
+<p>If you right-click on the chart you can use advanced options such as exporting and linking.</p>
+<h5>lessons completed</h5>
+<p><img src='lessons_completed.png'></p>
+<p>This chart shows how many lessons were completed by the class by time period - day, week, month or year. You can drill up or down to different time periods by hovering on the chart, then clicking on the arrows at the top right.</p>
+<p><img src='lessons_completed_drill.png'></p>
+<p>You can hover over a bar to get the details of a particular time period.</p>
+<p>If you right-click on the chart you can use advanced options such as exporting and linking.</p>
+<h5>advanced options</h5>
+<p>You can access other advanced options by clicking the 3 dots at the top right of the dashboard.</p>
+<p><img src='advanced_options.png'></p>
+</div>
