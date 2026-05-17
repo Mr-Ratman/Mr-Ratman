@@ -12,7 +12,10 @@ html {
 .monospace {
   font-family: monospace;
 }
-.dataframe th, dataframe td {
+.dataframe {
+  border-collapse: collapse;
+}
+.dataframe th, .dataframe td {
   border: 1px solid grey;
 }
 </style>
@@ -159,6 +162,7 @@ regr.fit(X.values, y)
 # number of convenience stores: 7
 
 print(regr.predict([[10, 100, 7]]))
+
 [48.99291231]
 </pre>
 </div>
