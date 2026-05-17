@@ -12,6 +12,9 @@ html {
 .monospace {
   font-family: monospace;
 }
+.dataframe th, dataframe td {
+  border: 1px solid grey;
+}
 </style>
 <p><a href='index.html'>&larr; back</a></p>
 <div class='container'>
@@ -65,6 +68,13 @@ plt.plot(data1, mymodel, "y")
 plt.show()
 </pre>
 <p><img src='linregress.png'></p>
+<p>Next I created a multiple linear regression model using house price data.</p>
+<pre>import pandas
+from sklearn import linear_model
+
+df = pandas.read_csv("real_estate.csv")
+df.head()
+</pre>
 <table class='dataframe'>
   <thead>
     <tr>
@@ -137,4 +147,18 @@ plt.show()
     </tr>
   </tbody>
 </table>
+<pre>X = df[["X2 house age", "X3 distance to the nearest MRT station", "X4 number of convenience stores"]]
+y = df["Y house price of unit area"]
+
+regr = linear_model.LinearRegression()
+regr.fit(X.values, y)
+</pre>
+<p>I used the model to predict the price of unit area for a house with with these parameters.</p>
+<pre># house age: 10
+# distance to nearest MRT station: 100
+# number of convenience stores: 7
+
+print(regr.predict([[10, 100, 7]]))
+[48.99291231]
+</pre>
 </div>
