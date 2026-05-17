@@ -5,7 +5,7 @@ html {
 table {
 	border-collapse: collapse;
 }
-td {
+#container > tbody > tr > td {
 	border: 1px solid grey;
 	padding: 10px;
 	vertical-align: top;
@@ -14,11 +14,40 @@ label {
 	font-size: small;
 }
 #output {
+	text-align: center;
 	font-size: large;
 	font-weight: bold;
 }
+#graph {
+	table-layout: fixed;
+	width: 150px;
+}
+#graph tr {
+	height: 10px;
+}
+#graph td:first-child {
+	padding-right: 5px;
+	text-align: right;
+	font-size: x-small;
+}
+#graph td:last-child {
+	width: 100px;
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+	border-top: 1px solid grey;
+	border-bottom: 1px solid grey;
+	padding: 0px;
+}
+#graph tr:first-child td:last-child {
+	border: none;
+}
+#graph tr:nth-child(5n + 1) td:last-child {
+	border-bottom: 2px solid black;
+}
 </style>
 <script>
+/*array_neighbourhoods is neighbourhood data
+pb is value for Google Maps query string, 0 1 2 are price ranges for room types*/
 var array_neighbourhoods = [
 	{pb: "!1m18!1m12!1m3!1d387193.05050448247!2d-74.30915380756711!3d40.69719336788428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2suk!4v1778686015399!5m2!1sen!2suk", 0: "75-250", 1: "40-120", 2: "28-88"},
 	{pb: "!1m18!1m12!1m3!1d96573.32289222191!2d-73.92333509838782!3d40.851760534528516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c28b553a697cb1%3A0x556e43a78ff15c77!2sBronx%2C%20NY%2C%20USA!5e0!3m2!1sen!2suk!4v1778694754966!5m2!1sen!2suk", 0: "80-140", 1: "40-70", 2: "28-55.5"},
@@ -28,28 +57,96 @@ var array_neighbourhoods = [
 	{pb: "!1m18!1m12!1m3!1d96990.50818451475!2d-74.2292196129242!3d40.56470673979025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c245ef79f4d4e7%3A0x50271f8534babc78!2sStaten%20Island%2C%20NY%2C%20USA!5e0!3m2!1sen!2suk!4v1778694883857!5m2!1sen!2suk", 0: "75-150", 1: "40-75", 2: "29-75"},
 ]
 
-function function_display_price_range() {
-	document.getElementById("output").innerHTML = array_neighbourhoods[document.getElementById("select_neighbourhood").value][document.querySelector("input[name='room_type']:checked").value];
-}
-
 document.addEventListener("DOMContentLoaded", function() {
-	document.getElementById("select_neighbourhood").addEventListener("change", function(e) {
-		document.getElementById("iframe_map").src = "https://www.google.com/maps/embed?pb=" + array_neighbourhoods[e.target.value].pb;
+
+		/*update price range in output paragraph and graph*/
+		function function_display_price_range() {
+		var string_range = array_neighbourhoods[document.getElementById("neighbourhood").value][document.querySelector("input[name='room_type']:checked").value];
+
+		document.getElementById("output").innerHTML = string_range;
+
+		/*reset the graph*/
+		array_graph_tds.forEach((e) => {
+			e.style.backgroundColor = "";
+			e.style.verticalAlign = "";
+			e.innerHTML = "";
+		});
+
+		/*find which cells to colour and colour them*/
+		var array_range = string_range.split("-");
+		var first_row = 41 - Math.floor(array_range[1] / 10);
+		var last_row = 40 - Math.ceil(array_range[0] / 10);
+		for (var i = first_row; i <= last_row; i++) {
+			array_graph_tds[i].style.backgroundColor = "lightgrey";
+		}
+
+		/*if there's a remainder at top add it*/
+		var top_remainder = array_range[1] - Math.floor(array_range[1] / 10) * 10;
+		if (top_remainder > 0) {
+			array_graph_tds[first_row - 1].style.verticalAlign = "bottom";
+			array_graph_tds[first_row - 1].innerHTML = `<div style='height: ${top_remainder}px; background-color: lightgrey;'></div>`;
+		}
+
+		/*if there's a remainder at bottom add it*/
+		var bottom_remainder = Math.ceil(array_range[0] / 10) * 10 - array_range[0];
+		if (bottom_remainder > 0) {
+			array_graph_tds[last_row + 1].style.verticalAlign = "top";
+			array_graph_tds[last_row + 1].innerHTML = `<div style='height: ${bottom_remainder}px; background-color: lightgrey;'></div>`;
+		}
+	}
+
+	/*if neighbourhood is chosen, display map, reset room type and display price range*/
+	document.getElementById("neighbourhood").addEventListener("change", function(e) {
+		document.getElementById("map").src = "https://www.google.com/maps/embed?pb=" + array_neighbourhoods[e.target.value].pb;
 		document.getElementById("entire").checked = true;
 		function_display_price_range();
 	});
 
+	/*array_radios is room type radio buttons*/
 	var array_radios = document.querySelectorAll("input[name='room_type']");
+
+	/*if room type is chosen display price range*/
 	array_radios.forEach((e) => e.addEventListener("click", function_display_price_range));
 
-	document.getElementById("select_neighbourhood").dispatchEvent(new Event("change"));
+	/*create select menu for specific room price*/
+	for (var i = 400; i >= 10; i-= 10) {
+		document.getElementById("price").innerHTML += `<option value='${i}'>${i}</option>`;
+	}
+
+	/*if specific room price is chosen add line on graph*/
+	document.getElementById("price").addEventListener("change", function(e) {
+		array_graph_tds.forEach((e) => e.style.borderBottom = "");
+		if (e.target.value != "") {
+			array_graph_tds[40 - e.target.value/10].style.borderBottom = "4px solid red";
+		}
+	});
+
+	/*create graph table*/
+	var tbody = document.getElementById("graph").querySelector("tbody");
+	for (var i = 400; i > 0; i -= 50) {
+		tbody.innerHTML += `
+			<tr><td rowspan='2'>${i}</td><td></td></tr>
+			<tr><td></td></tr>
+			<tr><td></td><td></td></tr>
+			<tr><td></td><td></td></tr>
+			<tr><td></td><td></td></tr>
+		`;
+	}
+	tbody.innerHTML += "<tr><td></td><td></td></tr>";
+
+	/*array_graph_tds is graph cells*/
+	var array_graph_tds = document.getElementById("graph").querySelectorAll("td:last-child");
+
+	/*when document loads, fire "change" event for neighbourhood select*/
+	document.getElementById("neighbourhood").dispatchEvent(new Event("change"));
 });
 </script>
-<table>
+<h3>Airbnb New York Price Checker</h3>
+<table id='container'>
 	<tr>
 		<td rowspan='2'>
 			<p>neighbourhood: 
-				<select id='select_neighbourhood'>
+				<select id='neighbourhood'>
 					<option value='0'></option>
 					<option value='1'>Bronx</option>
 					<option value='2'>Brooklyn</option>
@@ -59,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				</select>
 			</p>
 			<p>
-				<iframe id='iframe_map' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>
+				<iframe id='map' width='600' height='450' style='border:0;' allowfullscreen='' loading='lazy' referrerpolicy='no-referrer-when-downgrade'></iframe>
 			</p>
 		</td>
 		<td>
@@ -77,10 +174,21 @@ document.addEventListener("DOMContentLoaded", function() {
     			<label for='entire'>Shared room</label>
     		</p>
 		</td>
+		<td rowspan='2'>
+			<p>your room price: 
+				<select id='price'>
+					<option></option>
+				</select>
+			</p>
+			<table id='graph'>
+				<tbody>
+				</tbody>
+			</table>
+		</td>
 	</tr>
 	<tr>
 		<td>
-			<p>price range:</p>
+			<p>expected price range:</p>
 			<p id='output'></p>
 		</td>
 	</tr>
