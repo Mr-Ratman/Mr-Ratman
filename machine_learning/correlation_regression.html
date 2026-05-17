@@ -8,6 +8,9 @@ html {
   margin: 25px;
   padding: 25px;
   background-color: white;
+} 
+.monospace {
+  font-family: monospace;
 }
 </style>
 <p><a href='index.html'>&larr; back</a></p>
@@ -28,7 +31,7 @@ print("Pearsons correlation: %.3f" % corr.statistic)
 </pre>
 <p><img src='scatter_1.png'></p>
 <pre>Pearsons correlation: 0.893</pre>
-<p>I added more variance to <pre>data2</pre> - the correlation went down.</p>
+<p>I added more variance to <span class='monospace'>data2</span> - the correlation went down.</p>
 <pre>data2 = data1 + (20 * randn(1000) + 50)
 plt.scatter(data1, data2)
 plt.show()
@@ -37,7 +40,7 @@ print("Pearsons correlation: %.3f" % corr.statistic)
 </pre>
 <p><img src='scatter_2.png'></p>
 <pre>Pearsons correlation: 0.698</pre>
-<p>I added even more variance to <pre>data2</pre> - the correlation went further down.</p>
+<p>I added even more variance to <span class='monospace'>data2</span> - the correlation went further down.</p>
 <pre>data2 = data1 + (50 * randn(1000) + 50)
 plt.scatter(data1, data2)
 plt.show()
