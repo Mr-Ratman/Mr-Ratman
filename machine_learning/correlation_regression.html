@@ -168,4 +168,57 @@ print(regr.predict([[10, 100, 7]]))
 
 [48.99291231]
 </pre>
+<p>Finally I tried polynomial models with different dimensions. The data is the speed of cars passing a toll booth at different times.</p>
+<p>1 dimension produces a straight line.</p>
+<pre>import numpy
+import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 18, 19, 21, 22]
+y = [100, 90, 80, 60, 60, 55, 60, 65, 70, 70, 75, 76, 78, 79, 90, 99, 99, 100]
+
+mymodel = numpy.poly1d(numpy.polyfit(x, y, 1))
+myline = numpy.linspace(1, 22, 100)
+
+plt.scatter(x, y)
+plt.plot(myline, mymodel(myline))
+plt.show()
+</pre>
+<p><img src='polyfit_1.png'></p>
+<p>2 dimensions produces a curve.</p>
+<pre>mymodel = numpy.poly1d(numpy.polyfit(x, y, 2))
+myline = numpy.linspace(1, 22, 100)
+
+plt.scatter(x, y)
+plt.plot(myline, mymodel(myline))
+plt.show()
+</pre>
+<p><img src='polyfit_2.png'></p>
+<p>3 dimensions produces a curve which fits the data well.</p>
+<pre>mymodel = numpy.poly1d(numpy.polyfit(x, y, 3))
+myline = numpy.linspace(1, 22, 100)
+
+plt.scatter(x, y)
+plt.plot(myline, mymodel(myline))
+plt.show()
+</pre>
+<p><img src='polyfit_3.png'></p>
+<p>4 dimensions produces a curve which is starting to be "overfitted".</p>
+<pre>mymodel = numpy.poly1d(numpy.polyfit(x, y, 4))
+myline = numpy.linspace(1, 22, 100)
+
+plt.scatter(x, y)
+plt.plot(myline, mymodel(myline))
+plt.show()
+</pre>
+<p><img src='polyfit_4.png'></p>
+
+<p>10 dimensions produces a curve which has definitely been "overfitted".</p>
+<pre>mymodel = numpy.poly1d(numpy.polyfit(x, y, 10))
+myline = numpy.linspace(1, 22, 100)
+
+plt.scatter(x, y)
+plt.plot(myline, mymodel(myline))
+plt.show()
+</pre>
+<p><img src='polyfit_10.png'></p>
 </div>
