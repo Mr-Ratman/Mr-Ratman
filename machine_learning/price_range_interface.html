@@ -1,3 +1,4 @@
+
 <style>
 html {
 	font-family: sans-serif;
@@ -61,9 +62,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		/*update price range in output paragraph and graph*/
 		function function_display_price_range() {
-		var string_range = array_neighbourhoods[document.getElementById("neighbourhood").value][document.querySelector("input[name='room_type']:checked").value];
+		var string_range = array_neighbourhoods[neighbourhood.value][document.querySelector("input[name='room_type']:checked").value];
 
-		document.getElementById("output").innerHTML = string_range;
+		output.innerHTML = string_range;
 
 		/*reset the graph*/
 		array_graph_tds.forEach((e) => {
@@ -96,9 +97,9 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 
 	/*if neighbourhood is chosen, display map, reset room type and display price range*/
-	document.getElementById("neighbourhood").addEventListener("change", function(e) {
-		document.getElementById("map").src = "https://www.google.com/maps/embed?pb=" + array_neighbourhoods[e.target.value].pb;
-		document.getElementById("entire").checked = true;
+	neighbourhood.addEventListener("change", function(e) {
+		map.src = "https://www.google.com/maps/embed?pb=" + array_neighbourhoods[e.target.value].pb;
+		entire.checked = true;
 		function_display_price_range();
 	});
 
@@ -110,11 +111,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	/*create select menu for specific room price*/
 	for (var i = 400; i >= 10; i-= 10) {
-		document.getElementById("price").innerHTML += `<option value='${i}'>${i}</option>`;
+		price.innerHTML += `<option value='${i}'>${i}</option>`;
 	}
 
 	/*if specific room price is chosen add line on graph*/
-	document.getElementById("price").addEventListener("change", function(e) {
+	price.addEventListener("change", function(e) {
 		array_graph_tds.forEach((e) => e.style.borderBottom = "");
 		if (e.target.value != "") {
 			array_graph_tds[40 - e.target.value/10].style.borderBottom = "4px solid red";
@@ -122,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 	/*create graph table*/
-	var tbody = document.getElementById("graph").querySelector("tbody");
+	var tbody = graph.querySelector("tbody");
 	for (var i = 400; i > 0; i -= 50) {
 		tbody.innerHTML += `
 			<tr><td rowspan='2'>${i}</td><td></td></tr>
@@ -135,10 +136,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	tbody.innerHTML += "<tr><td></td><td></td></tr>";
 
 	/*array_graph_tds is graph cells*/
-	var array_graph_tds = document.getElementById("graph").querySelectorAll("td:last-child");
+	var array_graph_tds = graph.querySelectorAll("td:last-child");
 
 	/*when document loads, fire "change" event for neighbourhood select*/
-	document.getElementById("neighbourhood").dispatchEvent(new Event("change"));
+	neighbourhood.dispatchEvent(new Event("change"));
 });
 </script>
 <h3>Airbnb New York Price Checker</h3>
@@ -171,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function() {
     		</p>
 			<p>
     			<input type='radio' id='shared' name='room_type' value='2'>
-    			<label for='entire'>Shared room</label>
+    			<label for='shared'>Shared room</label>
     		</p>
 		</td>
 		<td rowspan='2'>
