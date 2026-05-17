@@ -15,4 +15,35 @@ html {
 <h3>Correlation and Regression Activity</h3>
 <p>I practised calculating correlations and making regression models with Python.</p>
 <p>I started by generating random datasets and calculating the Pearson correlation coefficient.</p>
+<pre>from numpy.random import randn
+from matplotlib import pyplot as plt
+from scipy.stats import pearsonr
+
+data1 = 20 * randn(1000) + 100
+data2 = data1 + (10 * randn(1000) + 50)
+plt.scatter(data1, data2)
+plt.show()
+corr = pearsonr(data1, data2)
+print('Pearsons correlation: %.3f' % corr.statistic)
+</pre>
+<p><img src='scatter_1.png'></p>
+<pre>Pearsons correlation: 0.893</pre>
+<p>I added more variance to <pre>data2</pre> - the correlation went down.</p>
+<pre>data2 = data1 + (20 * randn(1000) + 50)
+plt.scatter(data1, data2)
+plt.show()
+corr = pearsonr(data1, data2)
+print('Pearsons correlation: %.3f' % corr.statistic)
+</pre>
+<p><img src='scatter_2.png'></p>
+<pre>Pearsons correlation: 0.698</pre>
+<p>I added even more variance to <pre>data2</pre> - the correlation went further down.</p>
+<pre>data2 = data1 + (50 * randn(1000) + 50)
+plt.scatter(data1, data2)
+plt.show()
+corr = pearsonr(data1, data2)
+print('Pearsons correlation: %.3f' % corr.statistic)
+</pre>
+<p><img src='scatter_2.png'></p>
+<pre>Pearsons correlation: 0.333</pre>
 </div>
