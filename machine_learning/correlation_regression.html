@@ -25,7 +25,7 @@ html {
 <p><a href='index.html'>&larr; back</a></p>
 <div class='container'>
 <h3>Correlation and Regression Activity</h3>
-<p>In this activity we practised calculating correlations and making regression models with Python.</p>
+<p>In this activity we practised calculating correlations and making regression models with Python - I learned a lot about which Python libraries and functions can be used for these tasks!</p>
 <p>I started by generating random datasets and calculating the Pearson correlation coefficient.</p>
 <pre>from numpy.random import randn
 from matplotlib import pyplot as plt
@@ -49,7 +49,7 @@ print("Pearson's correlation: %.3f" % corr.statistic)
 </pre>
 <p><img src='scatter_2.png'></p>
 <pre>Pearsons correlation: 0.698</pre>
-<p>I added even more variance to <span class='monospace'>data2</span> - the correlation went further down.</p>
+<p>I added even more variance to <span class='monospace'>data2</span> - the correlation went further down!</p>
 <pre>data2 = data1 + (50 * randn(1000) + 50)
 plt.scatter(data1, data2)
 plt.show()
@@ -58,7 +58,7 @@ print("Pearson's correlation: %.3f" % corr.statistic)
 </pre>
 <p><img src='scatter_2.png'></p>
 <pre>Pearsons correlation: 0.333</pre>
-<p>Next I fitted a linear regression model to the random data.</p>
+<p>Next I fitted a linear regression model to the random data - I used the data with high correlation (0.893).</p>
 <pre>from scipy import stats
 
 data2 = data1 + (10 * randn(1000) + 50)
@@ -74,7 +74,7 @@ plt.plot(data1, mymodel, "y")
 plt.show()
 </pre>
 <p><img src='linregress.png'></p>
-<p>Next I created a multiple linear regression model using house price data.</p>
+<p>Next I created a multiple linear regression model using house price data which I downloaded from <a href='https://www.kaggle.com/datasets/quantbruce/real-estate-price-prediction' target='_blank'>Kaggle</a>.</p>
 <pre>import pandas
 from sklearn import linear_model
 
@@ -153,6 +153,7 @@ df.head()
     </tr>
   </tbody>
 </table>
+<p>I created the model using the features which seemed most relevant to house price - house age, distance to nearest MRT station, and number of convenience stores.</p>
 <pre>X = df[["X2 house age", "X3 distance to the nearest MRT station", "X4 number of convenience stores"]]
 y = df["Y house price of unit area"]
 
@@ -160,15 +161,17 @@ regr = linear_model.LinearRegression()
 regr.fit(X.values, y)
 </pre>
 <p>I used the model to predict the price of unit area for a house with with these parameters.</p>
-<pre># house age: 10
-# distance to nearest MRT station: 100
-# number of convenience stores: 7
-
-print(regr.predict([[10, 100, 7]]))
+<ul>
+  <li>house age: 10</li>
+  <li>distance to nearest MRT station: 100</li>
+  <li>number of convenience stores: 7</li>
+</ul>
+<pre>print(regr.predict([[10, 100, 7]]))
 
 [48.99291231]
 </pre>
-<p>Finally I tried polynomial models with different dimensions. The data is the speed of cars passing a toll booth at different times.</p>
+<p>The predicted "house price of unit area" was about 49.</p>
+<p>Finally I tried polynomial models with different dimensions. The data is the speed of cars passing a toll booth at different times - x is the time and y is the speed.</p>
 <pre>import numpy
 import matplotlib.pyplot as plt
 
@@ -223,5 +226,5 @@ plt.show()
 <p><img src='polyfit_10.png'></p>
 <p>The best fit for this data appears to be 3 dimensions.</p>
 <p>This was a great activity for practising creating different statistical models. 
-We were encouraged to choose try different parameters - this definitely helped me learn what effects the different parameters have.</p>
+We were encouraged try different parameters - this definitely helped me learn what effects the different parameters have, which will definitely be useful in my future data science career!</p>
 </div>
