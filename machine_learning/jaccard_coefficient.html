@@ -1,0 +1,227 @@
+<link rel='icon' type='image/png' href='../favicon.png'>
+<style>
+html {
+  background-color: greenyellow;
+  font-family: sans-serif;
+}
+.container {
+  margin: 25px;
+  padding: 25px;
+  background-color: white;
+} 
+.monospace {
+  font-family: monospace;
+}
+.dataframe th, .dataframe td {
+  padding: 2px;
+}
+.dataframe th {
+  background-color: lightgrey;
+}
+.dataframe tr:nth-child(2n) td {
+  background-color: whitesmoke;
+}
+</style>
+<p><a href='index.html'>&larr; back</a></p>
+<div class='container'>
+<h3>Jaccard Coefficient Calculations</h3>
+<p>We were given this table of pathological test results for three individuals.</p>
+<table class='dataframe'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Fever</th>
+      <th>Cough</th>
+      <th>Test-1</th>
+      <th>Test-2</th>
+      <th>Test-3</th>
+      <th>Test-4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jack</td>
+      <td>M</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>P</td>
+      <td>N</td>
+      <td>N</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <td>Mary</td>
+      <td>F</td>
+      <td>Y</td>
+      <td>N</td>
+      <td>P</td>
+      <td>A</td>
+      <td>P</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <td>Jim</td>
+      <td>M</td>
+      <td>Y</td>
+      <td>P</td>
+      <td>N</td>
+      <td>N</td>
+      <td>N</td>
+      <td>A</td>
+    </tr>
+  </tbody>
+</table>
+<p>Each individual's test results is a set of binary variables - each variable can have a value of 0 or 1, for example, "Fever" is either N (0) or Y (1). The other variables are either N (0), A (0) or P (1).</p>
+<p>The exercise was to calculate the Jaccard coefficient for each pair - Jack with Mary, Jack with Jim, and Mary with Jim.</p>
+<p>The Jaccard coefficient is a measure of the dissimilarity between two sets A and B. It is calculated with this formula.</p>
+<p>
+  <math>
+    <mrow>
+      <mi>Jaccard coefficient</mi>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <msub>
+            <mi>f</mi>
+            <mn>01</mn>
+          </msub>
+          <mo>+</mo>
+          <msub>
+            <mi>f</mi>
+            <mn>10</mn>
+          </msub>
+        </mrow>
+        <mrow>
+          <msub>
+            <mi>f</mi>
+            <mn>01</mn>
+          </msub>
+          <mo>+</mo>
+          <msub>
+            <mi>f</mi>
+            <mn>10</mn>
+          </msub>
+          <mo>+</mo>
+          <msub>
+            <mi>f</mi>
+            <mn>11</mn>
+          </msub>
+        </mrow>
+      </mfrac>
+    </mrow>
+  </math>
+</p>
+<p><math><mrow><msub><mi>f</mi><mn>01</mn></msub></mrow></math> is the number of times A is 0 and B is 1.</p>
+<p><math><mrow><msub><mi>f</mi><mn>10</mn></msub></mrow></math> is the number of times A is 1 and B is 0.</p>
+<p><math><mrow><msub><mi>f</mi><mn>11</mn></msub></mrow></math> is the number of times A is 1 and B is 1.</p>
+<p>Let us call Jack's test results set A and Mary's test results set B.</p>
+<p>A is 0 and B is 1 for 1 variable ("Test-3").</p>
+<p>A is 1 and B is 0 for 0 variables.</p>
+<p>A is 1 and B is 1 for 2 variables ("Fever" and "Test-1")</p>
+<p>
+  <math>
+    <mrow>
+      <mi>Jaccard coefficient</mi>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <mn>1</mn>
+          <mo>+</mo>
+          <mn>0</mn>
+        </mrow>
+        <mrow>
+          <mn>1</mn>
+          <mo>+</mo>
+          <mn>0</mn>
+          <mo>+</mo>
+          <mn>2</mn>
+        </mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <mn>1</mn>
+        </mrow>
+        <mrow>
+          <mn>3</mn>
+        </mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mn>0.33</mn>
+    </mrow>
+  </math>
+</p>
+<p>Jack and Mary's results are not very dissimilar. (In other words, they are quite similar.)</p>
+<p>We can use the same method to calculate the Jaccard coefficient for Jack and Jim.</p>
+<p>
+  <math>
+    <mrow>
+      <mi>Jaccard coefficient</mi>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <mn>1</mn>
+          <mo>+</mo>
+          <mn>1</mn>
+        </mrow>
+        <mrow>
+          <mn>1</mn>
+          <mo>+</mo>
+          <mn>1</mn>
+          <mo>+</mo>
+          <mn>1</mn>
+        </mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <mn>2</mn>
+        </mrow>
+        <mrow>
+          <mn>3</mn>
+        </mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mn>0.67</mn>
+    </mrow>
+  </math>
+</p>
+<p>Jack and Jim's results are quite dissimilar.</p>
+<p>Finally we can use the same method to calculate the Jaccard coefficient for Mary and Jim.</p>
+<p>
+  <math>
+    <mrow>
+      <mi>Jaccard coefficient</mi>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <mn>1</mn>
+          <mo>+</mo>
+          <mn>2</mn>
+        </mrow>
+        <mrow>
+          <mn>1</mn>
+          <mo>+</mo>
+          <mn>2</mn>
+          <mo>+</mo>
+          <mn>1</mn>
+        </mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <mn>3</mn>
+        </mrow>
+        <mrow>
+          <mn>4</mn>
+        </mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mn>0.75</mn>
+    </mrow>
+  </math>
+</p>
+<p>Mary and Jim's results are very dissimilar.</p>
+<p>The Jaccard coefficient is a fast way of comparing two sets of binary variables - much faster than visually comparing all the variables in two sets.</p>
+</div>
