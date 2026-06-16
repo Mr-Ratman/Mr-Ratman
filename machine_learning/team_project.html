@@ -7546,6 +7546,11 @@ document.addEventListener("DOMContentLoaded", function() {
   var toggles = document.querySelectorAll(".toggle");
   for (var i = 0; i < toggles.length; i++) {
     toggles[i].innerHTML = "⊞";
+    /* if parent <p> element of toggle <span> element is followed by <main> element, collapse <main> element */
+    var main = next_main(toggles[i].parentNode);
+    if (main) {
+      main.className = "collapse";
+    }
     toggles[i].addEventListener("click", function(e) {
       /* toggle is a <span> element - find its parent <p> element then the next <main> element */
       var main = next_main(e.target.parentNode);
