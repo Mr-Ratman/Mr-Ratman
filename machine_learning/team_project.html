@@ -7522,14 +7522,55 @@ main {
   color: -webkit-link;
   text-decoration: underline;
 }
+.toggle {
+  cursor: pointer;
+}
+.collapse * {
+	display: none;
+}
 </style>
+<script>
+function next_main(node) {
+/* return the next sibling which is a <main> element */
+  while(node.nextSibling) {
+    node = node.nextSibling
+    if (node.nodeName == "MAIN") {
+      return node;
+    }
+  }
+  return false;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+
+  var toggles = document.querySelectorAll(".toggle");
+  for (var i = 0; i < toggles.length; i++) {
+    toggles[i].innerHTML = "⊞";
+    toggles[i].addEventListener("click", function(e) {
+      /* toggle is a <span> element - find its parent <p> element then the next <main> element */
+      var main = next_main(e.target.parentNode);
+      if (main) {
+        /* if toggle is a plus symbol, change it to a minus symbol and show contents of <main> element */
+        if (e.target.innerHTML == "⊞") {
+          e.target.innerHTML = "⊟";
+          main.className = "";
+        /* otherwise change toggle to a plus symbol and hide contents of <main> element */
+        } else {
+          e.target.innerHTML = "⊞";
+          main.className = "collapse";
+        }
+      }
+    });
+  }
+});
+</script>
 </head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <p class='paul'><a href='index.html'>&larr; back</a></p>
 <p class='paul'>Our team project was to take an Airbnb dataset for New York in 2019, and apply machine learning approaches to analyse business trends.</p>
 <p class='paul'>Our team chose this business question.</p>
 <p class='paul'><i>Is a proposed price for a given room type in a given neighbourhood underpriced, in price range, or overpriced?</i></p>
-<p class='paul'>Abdullah began by loading and inspecting the Airbnb data.</p>
+<p class='paul'>Abdullah began by loading and inspecting the Airbnb data. <span class='toggle'></span></p>
 <main>
 <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7994,15 +8035,15 @@ dtype: int64</pre>
 </div>
 </div>
 </main>
-<p class='paul'>Leah and I then pre-processed the Airbnb data.</p>
+<p class='paul'>Leah and I then pre-processed the Airbnb data. <span class='toggle'></span></p>
 <main>
 <div>test</div>
 </main>
-<p class='paul'>Leah did some exploratory data analysis.</p>
+<p class='paul'>Leah did some exploratory data analysis. <span class='toggle'></span></p>
 <main>
 <div>test</div>
 </main>
-<p class='paul'>Preh and Ali used an autoencoder for anomaly detection.</p>
+<p class='paul'>Preh and Ali used an autoencoder for anomaly detection. <span class='toggle'></span></p>
 <main>
 <div>test</div>
 </main>
@@ -9162,7 +9203,7 @@ We tested what would happen if we added seemingly less relevant columns to the m
 <p class='paul'>You can choose a neighbourhood and a room type, and the app shows a map of the neighbourhood and the expected price range on a graph. You can then choose an example room price to compare with the price range.</p>
 <p class='paul'>Please try out my web app below!</p>
 <iframe src='https://mr-ratman.github.io/Mr-Ratman/machine_learning/price_range_interface.html' width='1000px' height='580px'></iframe>
-<p class='paul'>Marwa finished by writing a final evaluation.</p>
+<p class='paul'>Marwa finished by writing a final evaluation. <span class='toggle'></span></p>
 <main>
 <div>test</div>
 </main>
